@@ -6,6 +6,20 @@
   <title>Chandra Sunarseto — Game Designer</title>
   <meta name="description" content="Game Designer & Technical Designer — 10+ years, 15+ shipped titles, across Level Design, Systems, 3C, and AI-assisted tooling.">
 
+  <!-- Social preview (Open Graph + Twitter). og:image MUST be an absolute URL. -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://seenchan27.github.io/Portofolio/">
+  <meta property="og:title" content="Chandra Sunarseto — Game Designer & Technical Designer">
+  <meta property="og:description" content="10+ years shipping games, systems, and the tools that build them. Level Design · Systems · 3C · AI-assisted tooling.">
+  <meta property="og:image" content="https://seenchan27.github.io/Portofolio/preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chandra Sunarseto — Game Designer & Technical Designer">
+  <meta name="twitter:description" content="10+ years shipping games, systems, and the tools that build them.">
+  <meta name="twitter:image" content="https://seenchan27.github.io/Portofolio/preview.png">
+  <link rel="icon" href="favicon.png" type="image/png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -467,6 +481,10 @@
        ============================================================ */
     /* Cards that open a modal get a pointer + a details cue */
     .project-card.has-detail { cursor: pointer; }
+    .project-card.has-detail:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
     .card-detail-cue {
       display: flex;
       align-items: center;
@@ -2549,9 +2567,22 @@
 
     // Open when a detail-card is clicked (but not when a link inside is clicked)
     document.querySelectorAll('.project-card.has-detail').forEach(card => {
+      // Keyboard accessibility: make focusable + announce as button
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      const label = card.querySelector('.project-name');
+      if (label) card.setAttribute('aria-label', label.textContent + ' — view design breakdown');
+
       card.addEventListener('click', (e) => {
         if (e.target.closest('a')) return;       // let store links work normally
         open(card.getAttribute('data-modal'));
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.target.closest('a')) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(card.getAttribute('data-modal'));
+        }
       });
     });
 
