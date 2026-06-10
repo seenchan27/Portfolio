@@ -440,6 +440,28 @@
     .dtag-ux     { background: rgba(192,119,255,0.10);color: var(--t-ux);     border: 1px solid rgba(192,119,255,0.2); }
     .dtag-ai     { background: rgba(75,188,240,0.10); color: var(--t-ai);     border: 1px solid rgba(75,188,240,0.2);  }
 
+    /* Store links row */
+    .store-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 10px;
+    }
+    .store-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      transition: opacity 0.15s;
+    }
+    .store-link:hover { opacity: 0.75; }
+    .store-link::after { content: '↗'; font-size: 12px; }
+
     .proj-section-head {
       font-family: var(--font-d);
       font-size: 12px;
@@ -860,6 +882,10 @@
             <span class="dtag dtag-tech">Technical</span>
             <span class="dtag dtag-ai">AI Tooling</span>
           </div>
+          <div class="store-links">
+            <a href="https://play.google.com/store/apps/details?id=com.tripledot.jigsawsolitaire&hl=en" class="store-link" target="_blank" rel="noopener">Google Play</a>
+            <a href="https://apps.apple.com/us/app/puzzle-solitaire/id6757487581" class="store-link" target="_blank" rel="noopener">App Store</a>
+          </div>
         </div>
       </div>
 
@@ -880,13 +906,16 @@
             <span class="dtag dtag-system">Balancing</span>
             <span class="dtag dtag-system">System</span>
           </div>
+          <div class="store-links">
+            <a href="https://store.steampowered.com/app/2353050/WTF__Waifu_Tactical_Force/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+          </div>
         </div>
       </div>
 
       <!-- Contenders: Arena -->
       <div class="project-card">
         <div class="project-thumb">
-          <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCX3-5WcDA7MIng8aJ8ndsAW6WCBSj-Q_WN5QI6VlVNvWvslsfkRgBb7nRYElahRrMA72_N9Wp9hZ-mkqAKV2JTL7ONCPa8DpVydXFQvARz8O3smHbrSbjDwdGImuGkAv2WM2JVco4VoDaqtN4HYGBKaMTCoeMqvU_O3TxyY9jEpNuInIBvHg0T0P0YHZfQW3crPWJk_k_BRTaEf9XXtR9tTWuDsqzrWP6wVQgviFg=w1280" alt="Contenders: Arena level" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0d2030 0%,#0d3a52 100%);display:none">🎯</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -902,13 +931,16 @@
             <span class="dtag dtag-system">Balancing</span>
             <span class="dtag dtag-3c">3C</span>
           </div>
+          <div class="store-links">
+            <a href="https://store.steampowered.com/app/2445510/Contenders_Arena/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+          </div>
         </div>
       </div>
 
       <!-- Valthirian Arc: HSS2 -->
       <div class="project-card">
         <div class="project-thumb">
-          <img src="https://lh3.googleusercontent.com/sitesv/APaQ0SSp6CtgXkBEWIBcLNuMc0ow2BmCpI3Dx0jr3ZAeY5L9XlNoslHiIpgM8GhW5_Ar7lENjkSSuag79qQz5dsazdiEegI4hytEbztav6MkXr97ejaU3XDfHzzh8GC9FsOzpiO66y6fK9NdkU6NsYPC_EYMyhmDJKQfQu_vt4AwmjHJ4JgIktH51lg63hLmJ6E2Ses3B5bPt3INnkJnd6k1GIyZVAtsnbf4zpcf=w1280" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1330 0%,#2a1a48 100%);display:none">⚔️</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -926,13 +958,16 @@
             <span class="dtag dtag-ux">UX</span>
             <span class="dtag dtag-3c">3C</span>
           </div>
+          <div class="store-links">
+            <a href="https://store.steampowered.com/app/1453640/Valthirian_Arc_Hero_School_Story_2/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+          </div>
         </div>
       </div>
 
       <!-- Tirta -->
       <div class="project-card">
         <div class="project-thumb">
-          <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUD5fVMec0zyF7z8tn84hZrt-llc6_axOX2Zmydf--PdKs_OzkoiOJWKKghLb_u8xioYwLi9L3BIWo200AsRQ13oSnyZv1NxoIHT_EsRVVOpIvHTTtcbuE2l64aClTN8levOI2pRlLLLfKFTLQ5BAiih1P9njaBim4MgOSuBKOQy3ywSgTehyYjWAF0I44SzmxLR9a6AfKS0nD8p-R9YJSsNrJA1qVh1ktQMOPuWPMs=w1280" alt="Project Tirta level design" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Tirta-logo.png" alt="Project Tirta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0b2222 0%,#143c3c 100%);display:none">🌊</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -948,6 +983,9 @@
             <span class="dtag dtag-tech">Puzzle</span>
             <span class="dtag dtag-3c">3C</span>
             <span class="dtag dtag-ux">UX</span>
+          </div>
+          <div class="store-links">
+            <a href="https://youtu.be/HIDgYNY96kc?si=VNfBtB-2sWG52oQ0&t=55" class="store-link" target="_blank" rel="noopener">Watch Trailer</a>
           </div>
         </div>
       </div>
@@ -979,6 +1017,9 @@
             <span class="dtag dtag-tech">Technical</span>
             <span class="dtag dtag-level">Level</span>
           </div>
+          <div class="store-links">
+            <a href="https://store.steampowered.com/app/1365630/BAL_Solid/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+          </div>
         </div>
       </div>
 
@@ -1000,6 +1041,9 @@
           <div class="dtags">
             <span class="dtag dtag-level">Level</span>
             <span class="dtag dtag-tech">Technical</span>
+          </div>
+          <div class="store-links">
+            <a href="https://drive.google.com/file/d/1ai2FPqqR7YTORNy8VuZtpYuZXZY5yKLL/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
           </div>
         </div>
       </div>
