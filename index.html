@@ -462,6 +462,210 @@
     .store-link:hover { opacity: 0.75; }
     .store-link::after { content: '↗'; font-size: 12px; }
 
+    /* ============================================================
+       CARD "VIEW DETAILS" AFFORDANCE
+       ============================================================ */
+    /* Cards that open a modal get a pointer + a details cue */
+    .project-card.has-detail { cursor: pointer; }
+    .card-detail-cue {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 12px;
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .card-detail-cue::after { content: '→'; transition: transform 0.15s; }
+    .project-card.has-detail:hover .card-detail-cue { color: var(--accent); }
+    .project-card.has-detail:hover .card-detail-cue::after { transform: translateX(3px); }
+    /* Stop store-link clicks from also opening the modal */
+    .store-links a { position: relative; z-index: 2; }
+
+    /* ============================================================
+       MODAL
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(7, 9, 13, 0.78);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 24px;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      border-radius: 14px;
+      max-width: 760px;
+      width: 100%;
+      margin: auto 0;
+      position: relative;
+      transform: translateY(12px) scale(0.99);
+      transition: transform 0.22s ease;
+      overflow: hidden;
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 5;
+      width: 34px; height: 34px;
+      border: 1px solid var(--bg-border);
+      border-radius: 8px;
+      background: rgba(14, 17, 23, 0.7);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .modal-close:hover { border-color: var(--accent); background: var(--accent-low); }
+
+    /* Modal media — video embed or image */
+    .modal-media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .modal-media iframe,
+    .modal-media img {
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-body { padding: 28px 32px 34px; }
+
+    .modal-eyebrow {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .modal-title {
+      font-family: var(--font-d);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+    .modal-intro {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    /* Decision cards — problem → choice → result */
+    .decision-head {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .decision-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .decision-card {
+      background: var(--bg);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--r);
+      padding: 16px 18px;
+    }
+    .decision-title {
+      font-family: var(--font-d);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .decision-row {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.55;
+      margin-bottom: 5px;
+    }
+    .decision-row:last-child { margin-bottom: 0; }
+    .decision-label {
+      font-family: var(--font-d);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .decision-label.l-problem { color: var(--t-3c); }
+    .decision-label.l-choice  { color: var(--t-tech); }
+    .decision-label.l-result  { color: var(--t-level); }
+    .decision-text { color: var(--text-muted); }
+    .decision-text strong { color: var(--text); font-weight: 500; }
+
+    /* Screenshot strip inside modal */
+    .modal-shots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .modal-shots img {
+      width: 100%;
+      border-radius: var(--r);
+      border: 1px solid var(--bg-border);
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+    .modal-store {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--bg-border);
+    }
+
+    body.modal-open { overflow: hidden; }
+
     .proj-section-head {
       font-family: var(--font-d);
       font-size: 12px;
@@ -684,6 +888,14 @@
       .edu-langs { text-align: left; }
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
       .footer-links { justify-content: center; }
+
+      /* Modal on mobile */
+      .modal-overlay { padding: 0; }
+      .modal { border-radius: 0; min-height: 100vh; }
+      .modal-body { padding: 24px 20px 30px; }
+      .modal-title { font-size: 22px; }
+      .decision-row { grid-template-columns: 60px 1fr; }
+      .modal-shots { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -858,7 +1070,7 @@
     <div class="project-grid">
 
       <!-- Puzzle Solitaire — Tripledot (CURRENT) -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="puzzle-solitaire">
         <div class="project-thumb">
           <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0a1f35 0%,#0d3255 100%);display:none">🃏</div>
@@ -882,11 +1094,12 @@
             <a href="https://play.google.com/store/apps/details?id=com.tripledot.jigsawsolitaire&hl=en" class="store-link" target="_blank" rel="noopener">Google Play</a>
             <a href="https://apps.apple.com/us/app/puzzle-solitaire/id6757487581" class="store-link" target="_blank" rel="noopener">App Store</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
       <!-- WTF: Waifu Tactical Force -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="wtf">
         <div class="project-thumb">
           <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1f1020 0%,#2e1535 100%);display:none">🎮</div>
@@ -906,11 +1119,12 @@
           <div class="store-links">
             <a href="https://store.steampowered.com/app/2353050/WTF__Waifu_Tactical_Force/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
       <!-- Contenders: Arena -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="contenders">
         <div class="project-thumb">
           <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0d2030 0%,#0d3a52 100%);display:none">🎯</div>
@@ -931,11 +1145,12 @@
           <div class="store-links">
             <a href="https://store.steampowered.com/app/2445510/Contenders_Arena/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
       <!-- Valthirian Arc: HSS2 -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="valthirian">
         <div class="project-thumb">
           <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1330 0%,#2a1a48 100%);display:none">⚔️</div>
@@ -958,11 +1173,12 @@
           <div class="store-links">
             <a href="https://store.steampowered.com/app/1453640/Valthirian_Arc_Hero_School_Story_2/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
       <!-- Tirta -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="tirta">
         <div class="project-thumb">
           <img src="Tirta-logo.png" alt="Project Tirta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0b2222 0%,#143c3c 100%);display:none">🌊</div>
@@ -984,6 +1200,7 @@
           <div class="store-links">
             <a href="https://youtu.be/HIDgYNY96kc?si=VNfBtB-2sWG52oQ0&t=55" class="store-link" target="_blank" rel="noopener">Watch Trailer</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
@@ -994,7 +1211,7 @@
     <div class="project-grid">
 
       <!-- BAL Solid -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="bal-solid">
         <div class="project-thumb">
           <img src="bal-solid-logo.png" alt="BAL Solid" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1828 0%,#132840 100%);display:none">🧩</div>
@@ -1017,11 +1234,12 @@
           <div class="store-links">
             <a href="https://store.steampowered.com/app/1365630/BAL_Solid/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
       <!-- Howling Dark -->
-      <div class="project-card">
+      <div class="project-card has-detail" data-modal="howling-dark">
         <div class="project-thumb">
           <img src="howling-dark-logo.png" alt="Howling Dark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a0808 0%,#2e1010 100%);display:none">👁</div>
@@ -1042,12 +1260,107 @@
           <div class="store-links">
             <a href="https://drive.google.com/file/d/1ai2FPqqR7YTORNy8VuZtpYuZXZY5yKLL/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
           </div>
+          <div class="card-detail-cue">View design breakdown</div>
         </div>
       </div>
 
-    </div>
+      <!-- Overwatch Level -->
+      <div class="project-card has-detail" data-modal="overwatch">
+        <div class="project-thumb">
+          <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-placeholder" style="background:linear-gradient(135deg,#2a1206 0%,#3d1a0a 100%);display:none">🗺️</div>
+          <span class="project-badge badge-personal">Level Study</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">UE5 · CTF Level Design</div>
+          <div class="project-name">Alaskan Oil Rig — CTF Map</div>
+          <div class="project-desc">
+            A 6v6 Capture-the-Flag map built to sharpen FPS level design:
+            balanced engagement ranges, interconnected flanking routes, and
+            two-layer verticality around a central focal point.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-3c">Combat</span>
+          </div>
+          <div class="store-links">
+            <a href="https://drive.google.com/file/d/1aeJJ0nm2yj8yAUtJ57pexo1E_797VftY/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
+          </div>
+          <div class="card-detail-cue">View design breakdown</div>
+        </div>
+      </div>
 
-    <!-- Other work links -->
+      <!-- Genshin Dungeon -->
+      <div class="project-card has-detail" data-modal="genshin">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1a2e 0%,#16304d 100%)">🏛️</div>
+          <span class="project-badge badge-personal">Level Study</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Genshin Impact · Custom Dungeon</div>
+          <div class="project-name">Divine Ingenuity Dungeon</div>
+          <div class="project-desc">
+            A two-room 3rd-person dungeon built in Genshin's level editor —
+            a study in guiding players without UI: positive-reinforcement pathing,
+            funnel-before-reveal, and motivating curiosity through incompleteness.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-ux">Player Guidance</span>
+          </div>
+          <div class="card-detail-cue">View design breakdown</div>
+        </div>
+      </div>
+
+      <!-- Photosynthesis -->
+      <div class="project-card has-detail" data-modal="photosynthesis">
+        <div class="project-thumb">
+          <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1f0c 0%,#163216 100%);display:none">🌿</div>
+          <span class="project-badge badge-personal">Systems Study</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">UE4 · Educational Simulation</div>
+          <div class="project-name">Photosynthesis</div>
+          <div class="project-desc">
+            A systemic resource-management sim teaching real photosynthesis —
+            built in 3 days as an entry test. An exercise in balancing
+            interconnected variables and the tension between fun and accuracy.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-system">System</span>
+            <span class="dtag dtag-system">Balancing</span>
+          </div>
+          <div class="store-links">
+            <a href="https://drive.google.com/file/d/1b-Lx9WLvl6bF7jSlUYGS4Nnu2NVZ9NS0/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
+          </div>
+          <div class="card-detail-cue">View design breakdown</div>
+        </div>
+      </div>
+
+      <!-- NOVA Legacy -->
+      <div class="project-card has-detail" data-modal="nova">
+        <div class="project-thumb">
+          <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1800 0%,#352e00 100%);display:none">🚀</div>
+          <span class="project-badge badge-personal">First Project</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Java · Shooter Platformer · Gameloft</div>
+          <div class="project-name">N.O.V.A. Legacy (Java Port)</div>
+          <div class="project-desc">
+            My first project as a designer: porting a mobile shooter to the Nokia 5800.
+            Keypad-to-touch UI redesign, landscape level rework, new cinematics —
+            all under a punishing ~1MB size budget.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-ux">UX</span>
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-tech">Optimization</span>
+          </div>
+          <div class="card-detail-cue">View design breakdown</div>
+        </div>
+      </div>
     <div class="other-links">
       <a href="https://drive.google.com/drive/folders/1axNExalK8zIMXVw71WBKUlnGeZO112-3"
          class="pill" target="_blank" rel="noopener">
@@ -1236,6 +1549,956 @@
 
 
 <!-- ============================================================
+     PROJECT DETAIL MODALS
+     Each .modal-data block holds one project's detail content.
+     To add a new project: copy a block, change data-modal-id,
+     and add data-modal="that-id" + class "has-detail" to its card.
+     ============================================================ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Hidden content store — read into the modal on open -->
+<div id="modal-store" style="display:none">
+
+  <!-- ===== BAL SOLID ===== -->
+  <div data-modal-id="bal-solid">
+    <div class="modal-media">
+      <img src="bal-solid-logo.png" alt="BAL Solid">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Seenchan Game · PC · Steam · Solo Project</div>
+      <h3 class="modal-title">BAL Solid</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-system">System</span>
+        <span class="dtag dtag-tech">Technical</span>
+        <span class="dtag dtag-level">Level</span>
+      </div>
+      <p class="modal-intro">
+        A relaxing physics-based ball puzzle, designed, built, and shipped to Steam
+        entirely solo in ~110 hours. I built it as a deliberate exercise in finishing
+        and releasing a game — and in designing systems lean enough for one person to
+        ship, yet deep enough to carry 70 levels.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">One flexible block, hundreds of puzzles</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Solo dev — no time to build many distinct object types.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed a <strong>single block with toggle-able behaviors</strong> — resize, destroy, rotate, move, emit wind, or kill on touch.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">One reusable object generated the building blocks for the entire game — minimal tech cost, maximum design range.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Physics as a feature, not a liability</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Physics creates wow-moments and player expression, but also inconsistent, hard-to-repeat results.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Leaned into the upside, then <strong>guaranteed every level was solvable multiple ways</strong> to absorb the inconsistency.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">The "double-edged sword" became a strength — players get a different solve each run instead of a broken puzzle.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">A 4-rule pacing system for level order</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">70 levels risk feeling repetitive or spiking in difficulty.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Classified every level as Simple, Reflex, Trial-and-error, or Complex, then <strong>interleaved the types</strong> to give rest after hard puzzles.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A rhythm that keeps players challenged without burning them out — and a reusable rule for ordering future content.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Achievements tuned to player archetypes</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Completing a puzzle only rewards Explorer-type players.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Added an achievement list, Steam notifications, and <strong>alphanumeric achievement icons</strong> — targeting Achiever and Fighter/Socialiser types.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A deliberately niche reward structure for a niche market — and 100% positive reviews on release.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="decision-head">Screenshots</div>
+      <div class="modal-shots">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUALpsPgCmpF4hHG82Wp1NG5GOu0SH28hLfewZrYmRHY_rgSR0OWeYB7dA5DTFqBsTGLJc-NdTSz5FIcfqX9P4rVGG3yaKnoE0Xx4Rj3KcyVEKmXI9pl7U8aLLt1J_lxAemtMjYMYJBwKBYSf3FOdE9qpKyrAXx4dwOKS-QjzSl44hsnuEF4drtQoKE_8O8rYQiFpn3KIY_84m3SitdSTEpGeUYmCXIwhcGNsanSpFg=w1280" alt="BAL Solid gameplay" onerror="this.parentElement.style.display='none'">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCh4dOD7rsYwq8cb2dOhN_BKQkMvYc-BftYtkDtWIPhrZ9AOBdmLHbReLXm-SX9V6OAStiNcIorUTG5oIqQvOKDINlBFnAoX7D-YE_jJ1TekccXiPRgI8ZkJiCXvJvbHDTQyMgupeQjbGw3ijuo3hBgwjTjNtMXcNXIynCdIZbuqKqZtqmDXnzP41F7Y5k=w1280" alt="BAL Solid mechanics" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <div class="modal-store">
+        <a href="https://store.steampowered.com/app/1365630/BAL_Solid/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PUZZLE SOLITAIRE ===== -->
+  <div data-modal-id="puzzle-solitaire">
+    <div class="modal-media">
+      <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Tripledot Studios · Mobile · Current Role</div>
+      <h3 class="modal-title">Puzzle Solitaire</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-tech">Technical</span>
+        <span class="dtag dtag-ai">AI Tooling</span>
+      </div>
+      <p class="modal-intro">
+        As Level Designer on a live mobile title, my focus is less on hand-placing
+        every level and more on building the systems that let the team produce them
+        at scale. The headline result: a level pipeline that turned a 3–4 week build
+        cycle into under a week — with AI doing the heavy lifting and me owning the design.
+      </p>
+
+      <div class="decision-head">What I Build</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">AI-assisted level editor tooling</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">High-volume mobile puzzle content is slow and repetitive to author by hand.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed editor tooling with <strong>AI-assisted generation built into the workflow</strong>, keeping a human designer in the loop for quality.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Delivery time dropped from 3–4 weeks to under one week per batch.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">A full content-generation pipeline</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A single fast editor still isn't enough for sustained, high-volume production.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed the <strong>end-to-end pipeline</strong> — generation, validation, and export — so content scales without scaling headcount.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A repeatable system the whole design team uses to ship levels reliably.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">AI as a daily design tool</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">AI tools are easy to bolt on, hard to make genuinely productive day-to-day.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Treat AI as an <strong>execution accelerator under designer-owned system design</strong> — not a replacement for design judgment.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Fluent, daily AI-assisted workflow that compounds the team's output.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://play.google.com/store/apps/details?id=com.tripledot.jigsawsolitaire&hl=en" class="store-link" target="_blank" rel="noopener">Google Play</a>
+        <a href="https://apps.apple.com/us/app/puzzle-solitaire/id6757487581" class="store-link" target="_blank" rel="noopener">App Store</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WTF: WAIFU TACTICAL FORCE ===== -->
+  <div data-modal-id="wtf">
+    <div class="modal-media">
+      <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Worlds · PC · Steam · Freelance</div>
+      <h3 class="modal-title">WTF: Waifu Tactical Force</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-system">Balancing</span>
+        <span class="dtag dtag-system">System</span>
+      </div>
+      <p class="modal-intro">
+        An anime tactical FPS I contributed to on a freelance basis. My work centered
+        on making the weapons feel fair and distinct through data, and on helping a
+        growing team put repeatable design and documentation practices in place.
+      </p>
+
+      <div class="decision-head">My Contribution</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Data-driven weapon balancing</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Weapons in a tactical shooter need to feel distinct yet fair across many situations.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Used <strong>data-driven analysis</strong> to tune weapon parameters rather than relying on feel alone.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A weapon roster balanced on evidence, easier to reason about and adjust.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Establishing team workflow & docs</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A young team without settled design processes risks miscommunication and rework.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Helped <strong>shape the design workflow and documentation practices</strong> from the ground up.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Clearer process and shared reference points for the whole team.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://store.steampowered.com/app/2353050/WTF__Waifu_Tactical_Force/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTENDERS: ARENA ===== -->
+  <div data-modal-id="contenders">
+    <div class="modal-media">
+      <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Gamecan · UE5 · PC / Console</div>
+      <h3 class="modal-title">Contenders: Arena</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-system">Balancing</span>
+        <span class="dtag dtag-3c">3C</span>
+      </div>
+      <p class="modal-intro">
+        A fast-paced 3v3 hero shooter where you pilot a gladiator into intense, mobility-driven
+        battles. I joined in early production as a Level Designer and grew into ability design,
+        weapon balancing, and 3C work across all three classes.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Openness that serves movement</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A hero shooter built on mobility needs maps that let movement breathe.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed the TDM map to <strong>push the movement mechanics as far as possible</strong> — openness feeding both traversal and combat.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">The level reached the final shipped build; others stayed in testing.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Range across game modes</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Different modes (TDM, Tutorial, Racing) demand very different spatial design.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed <strong>5+ levels spanning all three modes</strong>, each tuned to its own goals.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A demonstrated range from competitive combat spaces to teaching and time-trial layouts.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">3C tuning across every class</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Each class plays differently, so one camera setup can't serve all of them.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Adjusted <strong>camera position and shake per class and ability</strong>, plus weapon fine-tuning for fairness.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A consistent, fair game feel across an asymmetric roster.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="decision-head">Screenshots</div>
+      <div class="modal-shots">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCX3-5WcDA7MIng8aJ8ndsAW6WCBSj-Q_WN5QI6VlVNvWvslsfkRgBb7nRYElahRrMA72_N9Wp9hZ-mkqAKV2JTL7ONCPa8DpVydXFQvARz8O3smHbrSbjDwdGImuGkAv2WM2JVco4VoDaqtN4HYGBKaMTCoeMqvU_O3TxyY9jEpNuInIBvHg0T0P0YHZfQW3crPWJk_k_BRTaEf9XXtR9tTWuDsqzrWP6wVQgviFg=w1280" alt="Contenders: Arena level" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <div class="modal-store">
+        <a href="https://store.steampowered.com/app/2445510/Contenders_Arena/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VALTHIRIAN ARC ===== -->
+  <div data-modal-id="valthirian">
+    <div class="modal-media">
+      <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Agate International · UE4 · PC / Console</div>
+      <h3 class="modal-title">Valthirian Arc: Hero School Story 2</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-system">System</span>
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-ux">UX</span>
+        <span class="dtag dtag-3c">3C</span>
+      </div>
+      <p class="modal-intro">
+        Run your own hero school — manage faculty, grow a roster of students, and rise among
+        the world's most prestigious academies. Across Senior and Lead Designer roles, I owned
+        economy balance, the proficiency &amp; battle-stats systems, UX, and 3C across base-building
+        and battle modes.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">An Excel simulator for economy balance</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Balancing a two-resource economy by playtesting alone is slow and imprecise.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Built an <strong>Excel simulator mirroring the in-game economy</strong> to predict and tune balance before implementation.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Faster, data-backed balancing and far fewer costly in-engine iterations.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">A monster placement tool for the team</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Placing and editing monsters was eating level designers' time.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed an <strong>improved placement system</strong> that made editing fast and approachable.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Cut designer workload on that task by ~60%.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Systems legible to players and designers</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">The proficiency &amp; battle-stats systems were hard for players to grasp and for designers to tweak.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Reworked them to be <strong>clearer for players and easier to modify</strong>, and improved the FTUE highlight system designers control directly.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">UX improvements validated by player surveys; FTUE changes raised retention.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://store.steampowered.com/app/1453640/Valthirian_Arc_Hero_School_Story_2/" class="store-link" target="_blank" rel="noopener">View on Steam</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TIRTA ===== -->
+  <div data-modal-id="tirta">
+    <div class="modal-media">
+      <iframe src="https://www.youtube.com/embed/HIDgYNY96kc?start=55" title="Tirta trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Agate International · UE4 · PC · Unannounced</div>
+      <h3 class="modal-title">Tirta</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-tech">Puzzle</span>
+        <span class="dtag dtag-3c">3C</span>
+        <span class="dtag dtag-ux">UX</span>
+      </div>
+      <p class="modal-intro">
+        A 3rd-person puzzle action-adventure I joined at the prototype stage. I owned 3C,
+        built and modified levels from paper design through blockout, designed and prototyped
+        the puzzle mechanics, and implemented the UI.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">A deliberate tutorial pacing ladder</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A puzzle adventure stacks many mechanics — introduce them carelessly and players drown.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Sequenced mechanics in a <strong>layered ladder</strong> (movement → climb → stain damage → water skill → switches → enemies → combinations), each new idea taught alone, then combined.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A smooth learning curve from first boss onward, with concepts compounding cleanly.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Easy-to-adjust puzzle mechanics</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Prototype puzzles need constant iteration based on playtester feedback.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed mechanics to be <strong>flexible and quick to tune</strong>, and balanced puzzle difficulty against real playtest data.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Faster iteration loops and puzzles tuned to observed player behavior.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Levels that carry the narrative</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Early levels must serve both the game pillars and the story.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Built levels from paper design to blockout to <strong>accommodate pillars and narrative together</strong>, and designed supporting narrative scenes.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A first area where mechanics and world-building reinforce each other.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://youtu.be/HIDgYNY96kc?si=VNfBtB-2sWG52oQ0&t=55" class="store-link" target="_blank" rel="noopener">Watch Full Trailer</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HOWLING DARK ===== -->
+  <div data-modal-id="howling-dark">
+    <div class="modal-media">
+      <img src="howling-dark-logo.png" alt="Howling Dark">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">UE4 · Horror Survival · Solo Game Jam</div>
+      <h3 class="modal-title">Howling Dark</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-tech">Technical</span>
+      </div>
+      <p class="modal-intro">
+        A narratively-driven survival horror set in space — imagine The Forest, in pitch black.
+        I built it solo in one week for an internal Gamecan game jam, which forced ruthless
+        prioritization: ship complete, interlocking systems fast by making each one reusable
+        and data-driven.
+      </p>
+
+      <div class="decision-head">Systems Built in 10 Days</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Mining with a randomized spawner</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Resource gathering is core to survival, but hand-placing resources is slow and makes runs repetitive.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Built a mining system with a <strong>randomized spawner</strong>.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Cut implementation time sharply and made every run feel different.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Data-driven crafting</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Crafting needs frequent rebalancing during a fast jam build.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Backed crafting with an <strong>easily editable database</strong> for quick balancing.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Recipes and costs tunable without touching code.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Costly combat against the Specter</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A horror monster must threaten without becoming a simple shooting gallery.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Gave the player a tool to fight back, but made <strong>combat expensive in resources</strong>.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Tension between fighting and conserving — the heart of the survival loop.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Needs that drive the night loop</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Survival pressure needs a constant, escalating source.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Implemented <strong>oxygen and electricity needs</strong> (plus a risky openable helm) that bite hardest during the long night.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A steady survival clock pushing players to manage resources and risk.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="decision-head">Screenshots</div>
+      <div class="modal-shots">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUComaYUNH53lbKxm900DrqpcPkUPRyeHhxwXGCfKNG8y-RsFyF3Xjw-oZW9KJUNehwwwUaMKjUoy1r5yJQdUDMJeLO8zlj0XbKImFn73L20QpDsz7equ91ajykYDYXLXF7e2czZzw31FB3xUBX1-qP7k1iJ4SR9A5Z9Ic_yLXLnqBIVcYZvna0jUa2TZ81W86AhAqKDJwC6OGhUHlq0IEe213XTyTVIB1FVBbev=w1280" alt="Howling Dark" onerror="this.parentElement.style.display='none'">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBuYvR57s7WgC2q9gjDtDk8LeUVDNA9-GH5BBTPehVE8mw3IrpVK3jvl6_K-eEBe6BWDAJjT4ZlDZA781uxyytBTGgTtRh-fSa21CvX9rOj8ObdOfq5Hr5Vr3daC1sAv2h1T_GWiR_-N9hnR6UKrrayjY7y6_rFJ60C5Gfd9KuHIBxlSYJTneCGYL7U3SRSVhtpZbdcWjUNVAnid4_lwd0mSpElHVsCE5nDot3r=w1280" alt="Howling Dark mining" onerror="this.parentElement.style.display='none'">
+      </div>
+
+      <div class="modal-store">
+        <a href="https://drive.google.com/file/d/1ai2FPqqR7YTORNy8VuZtpYuZXZY5yKLL/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== OVERWATCH / ALASKAN OIL RIG ===== -->
+  <div data-modal-id="overwatch">
+    <div class="modal-media">
+      <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">UE5 · Capture the Flag · Level Study</div>
+      <h3 class="modal-title">Alaskan Oil Rig — CTF Map</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-3c">Combat</span>
+      </div>
+      <p class="modal-intro">
+        A 6v6 Capture-the-Flag map set on a cyberpunk offshore oil rig in Alaska, built to
+        train FPS level design and learn UE5. The brief: a balanced arena for all engagement
+        ranges, with enough corners to create tension and enough connectivity to reward flanking.
+      </p>
+
+      <div class="decision-head">Level Brief &amp; Intent</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Balanced for all engagement ranges</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A CTF map skewed to one range favors specific playstyles and feels unfair.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Designed <strong>medium-sized choke points for team fights</strong> plus corners for surprise, balancing short and long sightlines.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A map that stays fair and tense across different ranges of engagement.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Interconnected flanking routes</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Linear maps make CTF predictable and easy to turtle.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Wove <strong>interconnected paths</strong> so players always have a flank option.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Dynamic routing and counterplay rather than a single contested lane.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Verticality around a focal point</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Players need to orient themselves quickly in a fast 6v6 mode.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Built <strong>two height layers around a central crane</strong> as a constant visual anchor, with environmental fall hazards.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Readable orientation plus added risk/reward from verticality.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://drive.google.com/file/d/1aeJJ0nm2yj8yAUtJ57pexo1E_797VftY/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GENSHIN DUNGEON ===== -->
+  <div data-modal-id="genshin">
+    <div class="modal-media">
+      <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUD9oTRvdXrG81nCCux3JDhR9n7I25UG0IxYKJqk-7fiJLg3qk0YQF8DUPX1E0ALTb1lc0Qf6cJQG3kgwbEF-KiTevzoBH_nffZagednk7gsyAQhMfuwD1gjJIenZdCDwdsUJXYNeIEgOg9XXGB1uBQ-ojCArGoj_jIcj_Q3Zct4eqCL5ZiiHzmcG5GbbVOtPlhOxbRyv2_dg2cptOhzxwUTKaNRRGTer1yqfJvJ=w1280" alt="Genshin dungeon" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">Genshin Impact · Custom Dungeon · Level Study</div>
+      <h3 class="modal-title">Divine Ingenuity Dungeon</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-ux">Player Guidance</span>
+      </div>
+      <p class="modal-intro">
+        Using Genshin's player-made dungeon event, I built a two-room, coin-collecting,
+        time-limited dungeon as a study in 3rd-person level design — specifically, guiding
+        players through a space using only the environment, no UI markers.
+      </p>
+
+      <div class="decision-head">Player-Guidance Techniques</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Leading with positive reinforcement</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Players need to find the intended path without explicit waypoints.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Placed <strong>collectible coins along the correct route</strong> — and deliberately none where players shouldn't go.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Players self-guide toward the goal by chasing rewards.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Funnel before reveal</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Players dropped into a space without orientation feel lost.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Used a <strong>funnel up a stairway to a vantage point</strong> that reveals the whole room — goal, layout, and recovery options.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Players understand where they are and where to go before committing.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Teasing with incompleteness</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Players need motivation to explore the second room.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Showed an effect missing its source (butterflies with no Electrogranum), <strong>prompting players to seek the missing piece</strong>.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Curiosity-driven exploration — players connect the dots themselves.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">A refresher beat between challenges</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A timed, demanding dungeon can exhaust players.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Added a <strong>speed-up zone with easy, satisfying coin gathering</strong> that doubles as required progress.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A fun palate-cleanser that resets focus — two birds, one stone.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PHOTOSYNTHESIS ===== -->
+  <div data-modal-id="photosynthesis">
+    <div class="modal-media">
+      <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">UE4 · Educational Simulation · Entry Test (3 days)</div>
+      <h3 class="modal-title">Photosynthesis</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-system">System</span>
+        <span class="dtag dtag-system">Balancing</span>
+      </div>
+      <p class="modal-intro">
+        A gamified simulation that teaches high-school students how photosynthesis actually
+        works. Built in 3 days as a company entry test, it was my exercise in designing and
+        balancing a systemic game where interconnected variables stay complex yet approachable.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Resource management as the core metaphor</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">The game must teach photosynthesis accurately while still playing like a game.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Made the core loop <strong>balancing resources inside an enclosed space</strong> — since photosynthesis is itself energy transformation and resource balance.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A mechanic that's both an accurate representation and a genuine balancing challenge.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Trading some accuracy for reward</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Scientifically-accurate gradual growth didn't reward the player enough.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Let players <strong>trigger growth on demand</strong> when sugar is sufficient — then surfaced the real biology in-context to preserve learning.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">A deliberate, transparent fun-vs-accuracy tradeoff that keeps both.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">External factors as depth</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A single resource loop risks feeling shallow.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Turned real variables — light intensity, temperature, water — into <strong>mechanics with covers and inputs</strong> the player manages.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">More gameplay depth and more realistic educational value at once.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Quizzes that are mechanically essential</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Educational quizzes are usually skippable filler.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Made correct answers <strong>grant essential resources</strong> — so failing to understand the science means failing the game.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Learning is enforced by the core loop, directly serving the game's pillars.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-store">
+        <a href="https://drive.google.com/file/d/1b-Lx9WLvl6bF7jSlUYGS4Nnu2NVZ9NS0/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NOVA LEGACY ===== -->
+  <div data-modal-id="nova">
+    <div class="modal-media">
+      <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none'">
+    </div>
+    <div class="modal-body">
+      <div class="modal-eyebrow">In-House Engine · Java · Gameloft · First Project</div>
+      <h3 class="modal-title">N.O.V.A. Legacy — Java Port</h3>
+      <div class="modal-tags">
+        <span class="dtag dtag-ux">UX</span>
+        <span class="dtag dtag-level">Level</span>
+        <span class="dtag dtag-tech">Optimization</span>
+      </div>
+      <p class="modal-intro">
+        My first project as a game designer: porting a completed mobile shooter from a keypad
+        device to the touchscreen Nokia 5800 family. It demanded a full control redesign, level
+        rework for a new aspect ratio, and brand-new content — all inside a brutal size budget.
+      </p>
+
+      <div class="decision-head">Key Design Decisions</div>
+      <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">Touch controls tuned for long sessions</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A platform shooter built for a keypad had to become comfortable and precise on touch.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Placed a <strong>fixed, transparent D-pad and buttons</strong> for muscle memory and screen visibility, and disabled slide input to suit the platforming.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Controls that don't tire the hands and preserve the original game's feel.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Readable QTE prompts</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">Players must instantly recognize a quick-time event and what to press.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Centered the QTE prompt, <strong>blinked the physical button</strong>, and matched the icon to that button.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Unmissable, unambiguous QTE moments.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">New levels, narrative-accurate</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">A more capable device meant adding levels that still fit the story and the engine's limits.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Built campaign levels <strong>following the master version's narrative</strong>, plus bullet-hell levels using "bullets on screen = difficulty."</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">New content that's both story-consistent and fun within constraints.</span>
+          </div>
+        </div>
+
+        <div class="decision-card">
+          <div class="decision-title">Designing under a ~1MB budget</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">New UI, levels, and cinematics all had to fit a tiny file-size limit.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">Aggressively <strong>reused and smartly split art assets</strong> across the game to add content without bloating size.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Shipped on time within budget — and a rare, lasting lesson in optimization.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+<!-- ============================================================
      SCROLL-SPY
      ============================================================ -->
 <script>
@@ -1255,6 +2518,49 @@
 
     window.addEventListener('scroll', spy, { passive: true });
     spy();
+  })();
+</script>
+
+
+<!-- ============================================================
+     PROJECT MODAL LOGIC
+     ============================================================ -->
+<script>
+  (() => {
+    const overlay  = document.getElementById('modal-overlay');
+    const content  = document.getElementById('modal-content');
+    const store    = document.getElementById('modal-store');
+    const closeBtn = document.getElementById('modal-close');
+
+    const open = (id) => {
+      const src = store.querySelector(`[data-modal-id="${id}"]`);
+      if (!src) return;
+      content.innerHTML = src.innerHTML;
+      overlay.classList.add('open');
+      document.body.classList.add('modal-open');
+      overlay.scrollTop = 0;
+    };
+
+    const close = () => {
+      overlay.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      // Clear after the fade so any iframe stops playing
+      setTimeout(() => { content.innerHTML = ''; }, 240);
+    };
+
+    // Open when a detail-card is clicked (but not when a link inside is clicked)
+    document.querySelectorAll('.project-card.has-detail').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;       // let store links work normally
+        open(card.getAttribute('data-modal'));
+      });
+    });
+
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+    });
   })();
 </script>
 
