@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chandra Sunarseto — Game Designer</title>
+  <meta name="description" content="Game Designer & Technical Designer — 10+ years, 15+ shipped titles, across Level Design, Systems, 3C, and AI-assisted tooling.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      --bg:         #0E1117;
+      --bg-card:    #141B27;
+      --bg-border:  #1F2D3D;
+      --accent:     #F0A500;
+      --accent-low: rgba(240, 165, 0, 0.10);
+      --text:       #DDE6F0;
+      --text-muted: #6E7E90;
+
+      /* Discipline tag palette */
+      --t-level:  #4EC4A0;
+      --t-system: #F0A500;
+      --t-tech:   #8B87FF;
+      --t-3c:     #FF7B7B;
+      --t-ux:     #C077FF;
+      --t-ai:     #4BBCF0;
+
+      --font-d: 'Space Grotesk', sans-serif;
+      --font-b: 'Inter', sans-serif;
+      --r: 10px;
+      --max-w: 1080px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 58px;
+      border-bottom: 1px solid var(--bg-border);
+      background: rgba(14, 17, 23, 0.90);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+    .nav-logo {
+      font-family: var(--font-d);
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .nav-links a:hover  { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cv {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      transition: background 0.15s;
+    }
+    .nav-cv:hover { background: var(--accent-low); }
+    .nav-cv svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    section { padding: 100px 0; }
+    .section-label {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-d);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 48px;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle grid */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 65% 85% at 5% 50%, black 0%, transparent 100%);
+      pointer-events: none;
+    }
+    /* Amber glow blob */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: -15%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(240,165,0,0.055) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-name {
+      font-family: var(--font-d);
+      font-size: clamp(54px, 8.5vw, 90px);
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 26px;
+    }
+    .hero-tagline {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+    .hero-tagline strong { color: var(--text); font-weight: 500; }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 40px;
+      border: 1px solid var(--bg-border);
+      border-radius: var(--r);
+      background: var(--bg-card);
+      overflow: hidden;
+      max-width: 560px;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 120px;
+      padding: 18px 20px;
+      border-right: 1px solid var(--bg-border);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-d);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      font-family: var(--font-d);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Contact pills */
+    .hero-contact { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--text); }
+    .pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ============================================================
+       ABOUT
+       ============================================================ */
+    .about-body {
+      max-width: 680px;
+    }
+    .about-body p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .about-body p:last-of-type { margin-bottom: 0; }
+
+    /* Categorized skill groups */
+    .skills-groups {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skill-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .skill-group-label {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      min-width: 90px;
+      padding-top: 6px;
+      flex-shrink: 0;
+    }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .skill-chip {
+      padding: 4px 13px;
+      border-radius: 5px;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .skill-chip.accent-chip {
+      background: rgba(240,165,0,0.08);
+      border-color: rgba(240,165,0,0.22);
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       PROJECTS GRID
+       ============================================================ */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 18px;
+    }
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--r);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: rgba(240,165,0,0.35);
+      transform: translateY(-2px);
+    }
+    .project-thumb {
+      height: 175px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+    }
+    .project-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-family: var(--font-d);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-pro {
+      background: rgba(240,165,0,0.18);
+      color: var(--accent);
+      border: 1px solid rgba(240,165,0,0.28);
+    }
+    .badge-personal {
+      background: rgba(75,188,240,0.12);
+      color: var(--t-ai);
+      border: 1px solid rgba(75,188,240,0.22);
+    }
+    .project-body {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .project-meta {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .project-name {
+      font-family: var(--font-d);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .project-highlight {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 600;
+      font-family: var(--font-d);
+      padding: 6px 10px;
+      background: var(--accent-low);
+      border-radius: 5px;
+      border-left: 2px solid var(--accent);
+    }
+    /* Discipline tag row — the signature detail */
+    .dtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding-top: 10px;
+      border-top: 1px solid var(--bg-border);
+      margin-top: 4px;
+    }
+    .dtag {
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-family: var(--font-d);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .dtag-level  { background: rgba(78,196,160,0.12); color: var(--t-level);  border: 1px solid rgba(78,196,160,0.25); }
+    .dtag-system { background: rgba(240,165,0,0.10);  color: var(--t-system); border: 1px solid rgba(240,165,0,0.2);   }
+    .dtag-tech   { background: rgba(139,135,255,0.12);color: var(--t-tech);   border: 1px solid rgba(139,135,255,0.25);}
+    .dtag-3c     { background: rgba(255,123,123,0.10);color: var(--t-3c);     border: 1px solid rgba(255,123,123,0.2); }
+    .dtag-ux     { background: rgba(192,119,255,0.10);color: var(--t-ux);     border: 1px solid rgba(192,119,255,0.2); }
+    .dtag-ai     { background: rgba(75,188,240,0.10); color: var(--t-ai);     border: 1px solid rgba(75,188,240,0.2);  }
+
+    .proj-section-head {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 40px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .proj-section-head::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--bg-border);
+    }
+
+    .other-links { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ============================================================
+       EXPERIENCE TIMELINE
+       ============================================================ */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 36px;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 183px;
+      top: 10px; bottom: 0;
+      width: 1px;
+      background: var(--bg-border);
+    }
+    .tl-item:last-child::before { display: none; }
+    .tl-left { text-align: right; padding-top: 1px; }
+    .tl-date {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .tl-company {
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.55;
+      margin-top: 3px;
+    }
+    .tl-right {
+      padding-left: 28px;
+      position: relative;
+    }
+    .tl-right::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 7px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--bg-border);
+      border: 2px solid var(--bg);
+    }
+    .tl-item.current .tl-right::before {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(240,165,0,0.18);
+    }
+    .tl-role {
+      font-family: var(--font-d);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .tl-project {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .tl-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .tl-bullets li {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+    .tl-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--bg-border);
+    }
+    .tl-bullets li.bold-bullet {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .tl-bullets li.bold-bullet::before { color: var(--accent); }
+
+    /* ============================================================
+       EDUCATION
+       ============================================================ */
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      border-radius: var(--r);
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      max-width: 600px;
+    }
+    .edu-degree {
+      font-family: var(--font-d);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .edu-school {
+      font-family: var(--font-d);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .edu-meta { font-size: 12px; color: var(--text-muted); }
+    .edu-langs {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .edu-langs .lang-label {
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .lang-item {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .lang-item span { color: var(--text); font-weight: 500; }
+
+    /* ============================================================
+       CONTACT CTA
+       ============================================================ */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      background: var(--accent);
+      color: #0E1117;
+      border-radius: 8px;
+      font-family: var(--font-d);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      transition: opacity 0.15s;
+    }
+    .cta-btn:hover { opacity: 0.88; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--bg-border);
+      padding: 28px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links, .nav-cv { display: none; }
+      .container { padding: 0 20px; }
+      section { padding: 72px 0; }
+      .hero-stats { max-width: 100%; }
+      .stat-item { min-width: 80px; padding: 14px 12px; }
+      .stat-number { font-size: 20px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .tl-item { grid-template-columns: 1fr; gap: 4px; }
+      .tl-item::before { display: none; }
+      .tl-left { text-align: left; }
+      .tl-right { padding-left: 0; }
+      .tl-right::before { display: none; }
+      .skill-group { flex-direction: column; gap: 8px; }
+      .skill-group-label { min-width: auto; padding-top: 0; }
+      .edu-card { flex-direction: column; }
+      .edu-langs { text-align: left; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="main-nav">
+  <div class="nav-logo">CS<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- TODO: Replace with a hosted PDF once you move to GitHub Pages -->
+  <a href="https://docs.google.com/document/d/1sMomoszNO-iZgtIb9LRlGkEU0V1Z5JKJt7QY0sLKanE/edit?usp=sharing"
+     class="nav-cv" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 2v8M5 7l3 3 3-3M2 13h12"/>
+    </svg>
+    Download CV
+  </a>
+</nav>
+
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-eyebrow">Game Designer · Technical Designer · Jakarta, Indonesia</div>
+
+      <h1 class="hero-name">Chandra<br>Sunarseto</h1>
+
+      <p class="hero-tagline">
+        I design systems that make games feel great — and I build the tools that help
+        teams ship them faster. From mobile tycoons to competitive shooters,
+        <strong>what used to take a month now ships in a week.</strong>
+      </p>
+
+      <!-- Stats from resume -->
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Years in Game Design</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Shipped Titles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">60%</div>
+          <div class="stat-label">Workload Cut via Tooling</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4×</div>
+          <div class="stat-label">Faster with AI</div>
+        </div>
+      </div>
+
+      <div class="hero-contact">
+        <a href="mailto:chandra.sunarseto@live.com" class="pill">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/>
+            <path d="M1.5 5.5l6.5 4 6.5-4"/>
+          </svg>
+          chandra.sunarseto@live.com
+        </a>
+        <a href="https://www.linkedin.com/in/chandrasunarseto/" class="pill" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13">
+            <path d="M3.5 2A1.5 1.5 0 1 0 3.5 5 1.5 1.5 0 0 0 3.5 2zM2.5 6h2v8h-2V6zM6 6h1.9v1.1h.03C8.3 6.4 9.3 5.9 10.7 5.9c2.3 0 2.8 1.5 2.8 3.5V14h-2V9.9c0-.97-.02-2.2-1.3-2.2-1.3 0-1.5 1-1.5 2.1V14H6V6z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About me</div>
+    <h2 class="section-title">Designer by instinct,<br>system-builder by habit.</h2>
+
+    <div class="about-body">
+      <p>
+        Over 10+ years across mobile, PC, and multiplayer titles, I've gone from QA to Lead
+        Designer — shipping turn-based tycoons, competitive shooters, and puzzle games along the way.
+      </p>
+      <p>
+        Recently I've added AI-assisted tool development to my practice: I design the system
+        architecture, AI handles the heavy lifting. I care deeply about the player experience,
+        but just as much about the team experience — good documentation, smart tooling,
+        and zero burnout.
+      </p>
+    </div>
+
+    <div class="skills-groups">
+      <div class="skill-group">
+        <span class="skill-group-label">Design</span>
+        <div class="skill-chips">
+          <span class="skill-chip">Systems Design</span>
+          <span class="skill-chip">Level Design</span>
+          <span class="skill-chip">Mechanic Design</span>
+          <span class="skill-chip">UX Design</span>
+          <span class="skill-chip">Balancing</span>
+          <span class="skill-chip">Prototyping</span>
+          <span class="skill-chip">FTUE</span>
+          <span class="skill-chip">Documentation</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-label">Technical</span>
+        <div class="skill-chips">
+          <span class="skill-chip accent-chip">AI-Assisted Tooling</span>
+          <span class="skill-chip">Unreal Engine 5</span>
+          <span class="skill-chip">Blueprint Scripting</span>
+          <span class="skill-chip">Data-Driven Design</span>
+          <span class="skill-chip">Unity (basic)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-label">Tools</span>
+        <div class="skill-chips">
+          <span class="skill-chip">Figma</span>
+          <span class="skill-chip">Miro</span>
+          <span class="skill-chip">Excel</span>
+          <span class="skill-chip">Notion</span>
+          <span class="skill-chip">Confluence</span>
+          <span class="skill-chip">Jira</span>
+          <span class="skill-chip">Claude</span>
+          <span class="skill-chip">Cursor</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <span class="skill-group-label">Leadership</span>
+        <div class="skill-chips">
+          <span class="skill-chip">Team Leadership</span>
+          <span class="skill-chip">Mentoring</span>
+          <span class="skill-chip">Cross-discipline Collab</span>
+          <span class="skill-chip">Agile / Scrum</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROJECTS
+     ============================================================ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Selected work</div>
+    <h2 class="section-title">Projects</h2>
+
+    <!-- Professional -->
+    <div class="proj-section-head">Professional</div>
+    <div class="project-grid">
+
+      <!-- Puzzle Solitaire — Tripledot (CURRENT) -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <!--
+            TODO: Add screenshot.
+            <img src="assets/puzzle-solitaire.jpg" alt="Puzzle Solitaire">
+            Recommended: 640×360 px
+          -->
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #0a1f35 0%, #0d3255 100%);">🃏</div>
+          <span class="project-badge badge-pro">Current</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Tripledot Studios · Mobile</div>
+          <div class="project-name">Puzzle Solitaire</div>
+          <div class="project-desc">
+            Level editor tooling built with AI-assisted development —
+            cut delivery time from 3–4 weeks to under one week.
+            Designed the full content generation pipeline for scalable, high-volume level production.
+          </div>
+          <div class="project-highlight">3–4 week build → under 1 week with AI tooling</div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-tech">Technical</span>
+            <span class="dtag dtag-ai">AI Tooling</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WTF: Waifu Tactical Force -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #1f1020 0%, #2e1535 100%);">🎮</div>
+          <span class="project-badge badge-pro">Professional</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Worlds — PC · Steam</div>
+          <div class="project-name">WTF: Waifu Tactical Force</div>
+          <div class="project-desc">
+            Anime tactical FPS. Data-driven weapon balancing and
+            design workflow setup; helped establish the team's documentation practices.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-system">Balancing</span>
+            <span class="dtag dtag-system">System</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contenders: Arena -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #0d2030 0%, #0d3a52 100%);">🎯</div>
+          <span class="project-badge badge-pro">Professional</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Gamecan · UE5 · PC / Console</div>
+          <div class="project-name">Contenders: Arena</div>
+          <div class="project-desc">
+            Multiplayer hero shooter. Designed 5+ multiplayer levels (TDM, Tutorial, Racing);
+            reworked weapon balance and camera/3C systems; contributed to multi-phase boss fight design.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-system">Balancing</span>
+            <span class="dtag dtag-3c">3C</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Valthirian Arc: HSS2 -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #1a1330 0%, #2a1a48 100%);">⚔️</div>
+          <span class="project-badge badge-pro">Professional</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Agate · UE4 · PC / Console</div>
+          <div class="project-name">Valthirian Arc: Hero School Story 2</div>
+          <div class="project-desc">
+            Turn-based RPG tycoon. Designed economic progression systems using self-built
+            Excel simulation tools; led UI/UX from concept to release; developed 3C across all game modes.
+          </div>
+          <div class="project-highlight">Built monster placement tool that cut designer workload by 60%</div>
+          <div class="dtags">
+            <span class="dtag dtag-system">System</span>
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-ux">UX</span>
+            <span class="dtag dtag-3c">3C</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tirta -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #0b2222 0%, #143c3c 100%);">🌊</div>
+          <span class="project-badge badge-pro">Professional</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Agate · UE4 · PC</div>
+          <div class="project-name">Tirta (Unannounced)</div>
+          <div class="project-desc">
+            3rd-person action-adventure. Designed tutorial through first boss,
+            prototyped puzzle mechanics, and implemented UI/UX and in-game cinematics.
+          </div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-tech">Puzzle</span>
+            <span class="dtag dtag-3c">3C</span>
+            <span class="dtag dtag-ux">UX</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Personal -->
+    <div class="proj-section-head">Personal</div>
+    <div class="project-grid">
+
+      <!-- BAL Solid -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #0c1828 0%, #132840 100%);">🧩</div>
+          <span class="project-badge badge-personal">Solo / Released</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">Seenchan Game · PC · Steam</div>
+          <div class="project-name">BAL Solid</div>
+          <div class="project-desc">
+            Casual physics puzzle game designed and shipped solo —
+            70 levels, 72 achievements, 100% positive reviews on Steam.
+            Handled the full pipeline: design, levels, implementation, and publishing.
+          </div>
+          <div class="project-highlight">100% positive reviews on Steam · 70 levels · 72 achievements</div>
+          <div class="dtags">
+            <span class="dtag dtag-system">System</span>
+            <span class="dtag dtag-tech">Technical</span>
+            <span class="dtag dtag-level">Level</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Howling Dark -->
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-placeholder" style="background: linear-gradient(135deg, #1a0808 0%, #2e1010 100%);">👁</div>
+          <span class="project-badge badge-personal">Personal</span>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">UE5 · Horror Survival</div>
+          <div class="project-name">Howling Dark</div>
+          <div class="project-desc">
+            Solo prototype built from scratch in 10 days —
+            a complete horror survival experience demonstrating rapid full-stack prototyping.
+          </div>
+          <div class="project-highlight">Concept to playable prototype in 10 days</div>
+          <div class="dtags">
+            <span class="dtag dtag-level">Level</span>
+            <span class="dtag dtag-tech">Technical</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Other work links -->
+    <div class="other-links">
+      <a href="https://drive.google.com/drive/folders/1axNExalK8zIMXVw71WBKUlnGeZO112-3"
+         class="pill" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13">
+          <path d="M3 7.5L7.5 3l4.5 4.5M7.5 3v9.5M2 13.5h11"/>
+        </svg>
+        Pitch Documents (Drive)
+      </a>
+      <a href="https://drive.google.com/drive/folders/1GTugSLdTY2y0m_TqXQ_XyP5dtdnkWQzu"
+         class="pill" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13">
+          <rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/>
+          <path d="M5 2.5V1M11 2.5V1M1.5 6.5h13"/>
+        </svg>
+        Prototype Archive (Drive)
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     EXPERIENCE
+     ============================================================ -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Work Experience</h2>
+
+    <div class="timeline">
+
+      <!-- Tripledot Studios — CURRENT -->
+      <div class="tl-item current">
+        <div class="tl-left">
+          <div class="tl-date">Oct 2025 — Present</div>
+          <div class="tl-company">Tripledot Studios</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Level Designer</div>
+          <div class="tl-project">Puzzle Solitaire · Mobile · Jakarta, Indonesia</div>
+          <ul class="tl-bullets">
+            <li class="bold-bullet">Built level editor tooling with AI-assisted development — cut delivery time from 3–4 weeks to under one week.</li>
+            <li>Designed the full content generation pipeline, enabling scalable, high-volume level production.</li>
+            <li>Fluent in AI as a daily workflow tool — I own the system design, AI accelerates execution.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Worlds — Team Waifu (freelance, overlapped with Tripledot) -->
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-date">Mar 2025 — Mar 2026</div>
+          <div class="tl-company">Worlds — Team Waifu</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Game Designer</div>
+          <div class="tl-project">WTF: Waifu Tactical Force · PC · Steam &nbsp;·&nbsp; Freelance / Contract</div>
+          <ul class="tl-bullets">
+            <li>Contributed to game design and weapon balancing using data-driven analysis.</li>
+            <li>Helped shape and establish the team's design workflow and documentation practices.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Gamecan -->
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-date">Nov 2022 — Aug 2024</div>
+          <div class="tl-company">Gamecan</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Level Designer</div>
+          <div class="tl-project">Contenders: Arena · UE5 · Pärnu, Estonia (On-site)</div>
+          <ul class="tl-bullets">
+            <li>Designed 5+ multiplayer levels (TDM, Tutorial, Racing) in Unreal Engine 5.</li>
+            <li>Reworked weapon balance and camera/3C systems across all character classes.</li>
+            <li>Contributed to a multi-phase boss fight design alongside the team.</li>
+            <li class="bold-bullet">Created the team's design documentation template — reduced cross-discipline miscommunication by 60%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Agate International -->
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-date">Jun 2019 — Nov 2022</div>
+          <div class="tl-company">Agate International</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Lead Game Designer <span style="font-weight:400;color:var(--text-muted);font-size:13px;">/ prev. Senior Game Designer</span></div>
+          <div class="tl-project">Valthirian Arc: Hero School Story 2 · Tirta · Bandung, Indonesia</div>
+          <ul class="tl-bullets">
+            <li>Directed system &amp; UX design from concept to release; led FTUE improvements that raised retention.</li>
+            <li class="bold-bullet">Balanced in-game economy through data-driven iteration using self-built Excel simulation tools.</li>
+            <li>Built a monster placement tool that cut designer workload by 60%.</li>
+            <li>Managed team priorities with zero burnout incidents across the project.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Gameloft (designer) -->
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-date">Mar 2016 — Jun 2019</div>
+          <div class="tl-company">Gameloft</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Senior Game Designer <span style="font-weight:400;color:var(--text-muted);font-size:13px;">/ prev. Junior</span></div>
+          <div class="tl-project">Prototyping Team · Yogyakarta, Indonesia</div>
+          <ul class="tl-bullets">
+            <li>Delivered a new hyper-casual prototype every 1–2 weeks on the Prototyping Team.</li>
+            <li>Designed and implemented 5+ levels for a side-scrolling shooter; optimised mobile assets by up to 90%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Gameloft QA -->
+      <div class="tl-item">
+        <div class="tl-left">
+          <div class="tl-date">Jul 2011 — Sep 2013</div>
+          <div class="tl-company">Gameloft</div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">QA Senior Tester <span style="font-weight:400;color:var(--text-muted);font-size:13px;">/ prev. QA Tester</span></div>
+          <div class="tl-project">Yogyakarta, Indonesia</div>
+          <ul class="tl-bullets">
+            <li>Built foundational knowledge of game dev pipelines and quality standards across multiple mobile titles.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Education -->
+    <div class="section-label" style="margin-top: 64px;">Education &amp; Languages</div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Diploma — Computer Information Management</div>
+        <div class="edu-school">University Amikom</div>
+        <div class="edu-meta">Yogyakarta, Indonesia · 2009 – 2011</div>
+      </div>
+      <div class="edu-langs">
+        <div class="lang-label">Languages</div>
+        <div class="lang-item"><span>English</span> — Proficient</div>
+        <div class="lang-item"><span>Indonesian</span> — Native</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact" style="padding-bottom: 72px;">
+  <div class="container">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title" style="margin-bottom: 16px;">Let's work together.</h2>
+    <p style="color: var(--text-muted); max-width: 460px; margin-bottom: 32px; line-height: 1.75;">
+      Open to new opportunities, collaborations, and interesting design conversations.
+    </p>
+    <a href="mailto:chandra.sunarseto@live.com" class="cta-btn">
+      Send me an email
+    </a>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-copy">© 2026 Chandra Sunarseto — Work Smart, Play Hard.</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/chandrasunarseto/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://docs.google.com/document/d/1sMomoszNO-iZgtIb9LRlGkEU0V1Z5JKJt7QY0sLKanE/edit?usp=sharing"
+           target="_blank" rel="noopener">CV</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     SCROLL-SPY
+     ============================================================ -->
+<script>
+  (() => {
+    const links = document.querySelectorAll('.nav-links a');
+    const ids   = ['hero', 'about', 'projects', 'experience', 'contact'];
+    const secs  = ids.map(id => document.getElementById(id));
+
+    const spy = () => {
+      const y = window.scrollY + 80;
+      let active = ids[0];
+      for (const s of secs) {
+        if (s && y >= s.offsetTop) active = s.id;
+      }
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${active}`));
+    };
+
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+  })();
+</script>
+
+</body>
+</html>
