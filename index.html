@@ -124,6 +124,59 @@
     .nav-cv:hover { background: var(--accent-low); }
     .nav-cv svg { width: 13px; height: 13px; flex-shrink: 0; }
 
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+
+    /* Hamburger — mobile only */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 36px;
+      height: 36px;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid var(--bg-border);
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .nav-burger span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-menu {
+      position: fixed;
+      top: 58px; left: 0; right: 0;
+      z-index: 99;
+      background: rgba(14,17,23,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--bg-border);
+      display: none;
+      flex-direction: column;
+      padding: 8px 0 12px;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu a {
+      padding: 13px 24px;
+      font-family: var(--font-d);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--bg-border);
+    }
+    .nav-menu a:last-child { border-bottom: none; }
+    .nav-menu a:active { color: var(--accent); }
+
     /* ============================================================
        LAYOUT
        ============================================================ */
@@ -228,7 +281,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0;
-      margin-bottom: 40px;
+      margin-bottom: 14px;
       border: 1px solid var(--bg-border);
       border-radius: var(--r);
       background: var(--bg-card);
@@ -276,6 +329,36 @@
     }
     .pill:hover { border-color: var(--accent); color: var(--text); }
     .pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* Genre strip under hero stats */
+    .genre-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 40px;
+      max-width: 560px;
+    }
+    .genre-strip-label {
+      font-family: var(--font-d);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+    .genre-chip {
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(240,165,0,0.07);
+      border: 1px solid rgba(240,165,0,0.2);
+      font-family: var(--font-d);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.03em;
+    }
 
     /* ============================================================
        ABOUT
@@ -392,6 +475,15 @@
       background: rgba(75,188,240,0.12);
       color: var(--t-ai);
       border: 1px solid rgba(75,188,240,0.22);
+    }
+    /* Genre badge — top-right, neutral so it doesn't fight the status badge */
+    .badge-genre {
+      left: auto;
+      right: 12px;
+      background: rgba(14,17,23,0.82);
+      color: var(--text);
+      border: 1px solid var(--bg-border);
+      backdrop-filter: blur(4px);
     }
     .project-body {
       padding: 18px 20px 20px;
@@ -1045,6 +1137,7 @@
       nav { padding: 0 20px; }
       .nav-links { display: none; }
       .nav-cv { padding: 5px 12px; font-size: 11px; }
+      .nav-burger { display: flex; }
       .container { padding: 0 20px; }
       section { padding: 72px 0; }
       .hero-stats { max-width: 100%; }
@@ -1090,14 +1183,27 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <!-- Resume hosted in repo root -->
-  <a href="resume.pdf" class="nav-cv" target="_blank" rel="noopener">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M8 2v8M5 7l3 3 3-3M2 13h12"/>
-    </svg>
-    Download CV
-  </a>
+  <div class="nav-right">
+    <!-- Resume hosted in repo root -->
+    <a href="resume.pdf" class="nav-cv" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 2v8M5 7l3 3 3-3M2 13h12"/>
+      </svg>
+      Download CV
+    </a>
+    <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- Mobile dropdown menu -->
+<div class="nav-menu" id="nav-menu">
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+</div>
 
 
 <!-- ============================================================
@@ -1136,6 +1242,18 @@
           <div class="stat-number">4×</div>
           <div class="stat-label">Faster with AI</div>
         </div>
+      </div>
+
+      <!-- Genres shipped -->
+      <div class="genre-strip">
+        <span class="genre-strip-label">Genres</span>
+        <span class="genre-chip">Shooters</span>
+        <span class="genre-chip">Puzzle</span>
+        <span class="genre-chip">RPG &amp; Tycoon</span>
+        <span class="genre-chip">Action-Adventure</span>
+        <span class="genre-chip">Survival Horror</span>
+        <span class="genre-chip">Racing</span>
+        <span class="genre-chip">Simulation</span>
       </div>
 
       <div class="hero-contact">
@@ -1249,6 +1367,7 @@
           <img src="assets/puzzle-solitaire-logo.png" alt="Puzzle Solitaire" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0a1f35 0%,#0d3255 100%);display:none">🃏</div>
           <span class="project-badge badge-pro">Current</span>
+          <span class="project-badge badge-genre">Puzzle</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Tripledot Studios · Mobile</div>
@@ -1278,6 +1397,7 @@
           <img src="assets/wtf-logo.png" alt="WTF: Waifu Tactical Force" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1f1020 0%,#2e1535 100%);display:none">🎮</div>
           <span class="project-badge badge-pro">Professional</span>
+          <span class="project-badge badge-genre">FPS</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Worlds — PC · Steam</div>
@@ -1303,6 +1423,7 @@
           <img src="assets/Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0d2030 0%,#0d3a52 100%);display:none">🎯</div>
           <span class="project-badge badge-pro">Professional</span>
+          <span class="project-badge badge-genre">Hero Shooter</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Gamecan · UE5 · PC / Console</div>
@@ -1329,6 +1450,7 @@
           <img src="assets/Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1330 0%,#2a1a48 100%);display:none">⚔️</div>
           <span class="project-badge badge-pro">Professional</span>
+          <span class="project-badge badge-genre">RPG · Tycoon</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Agate · UE4 · PC / Console</div>
@@ -1357,6 +1479,7 @@
           <img src="assets/Tirta-logo.png" alt="Project Tirta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0b2222 0%,#143c3c 100%);display:none">🌊</div>
           <span class="project-badge badge-pro">Professional</span>
+          <span class="project-badge badge-genre">Action-Adv</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Agate · UE4 · PC</div>
@@ -1390,6 +1513,7 @@
           <img src="assets/bal-solid-logo.png" alt="BAL Solid" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1828 0%,#132840 100%);display:none">🧩</div>
           <span class="project-badge badge-personal">Solo / Released</span>
+          <span class="project-badge badge-genre">Physics Puzzle</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Seenchan Game · PC · Steam</div>
@@ -1418,6 +1542,7 @@
           <img src="assets/howling-dark-logo.png" alt="Howling Dark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a0808 0%,#2e1010 100%);display:none">👁</div>
           <span class="project-badge badge-personal">Personal</span>
+          <span class="project-badge badge-genre">Survival Horror</span>
         </div>
         <div class="project-body">
           <div class="project-meta">UE5 · Horror Survival</div>
@@ -1444,6 +1569,7 @@
           <img src="assets/overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#2a1206 0%,#3d1a0a 100%);display:none">🗺️</div>
           <span class="project-badge badge-personal">Level Study</span>
+          <span class="project-badge badge-genre">FPS · CTF</span>
         </div>
         <div class="project-body">
           <div class="project-meta">UE5 · CTF Level Design</div>
@@ -1470,6 +1596,7 @@
           <img src="assets/genshin-logo.png" alt="Divine Ingenuity Dungeon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1a2e 0%,#16304d 100%);display:none">🏛️</div>
           <span class="project-badge badge-personal">Level Study</span>
+          <span class="project-badge badge-genre">Dungeon</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Genshin Impact · Custom Dungeon</div>
@@ -1493,6 +1620,7 @@
           <img src="assets/photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1f0c 0%,#163216 100%);display:none">🌿</div>
           <span class="project-badge badge-personal">Systems Study</span>
+          <span class="project-badge badge-genre">Simulation</span>
         </div>
         <div class="project-body">
           <div class="project-meta">UE4 · Educational Simulation</div>
@@ -1519,6 +1647,7 @@
           <img src="assets/nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1800 0%,#352e00 100%);display:none">🚀</div>
           <span class="project-badge badge-personal">First Project</span>
+          <span class="project-badge badge-genre">Platformer</span>
         </div>
         <div class="project-body">
           <div class="project-meta">Java · Shooter Platformer · Gameloft</div>
@@ -2737,6 +2866,20 @@
 
     window.addEventListener('scroll', spy, { passive: true });
     spy();
+
+    // Mobile hamburger menu
+    const burger = document.getElementById('nav-burger');
+    const menu   = document.getElementById('nav-menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }));
   })();
 </script>
 
