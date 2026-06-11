@@ -883,6 +883,160 @@
       transition: color 0.15s;
     }
     .footer-links a:hover { color: var(--text); }
+    .footer-hint {
+      opacity: 0.45;
+      font-style: italic;
+      margin-left: 10px;
+    }
+
+    /* ============================================================
+       EASTER EGG — pulsing dot + BAL Mini game
+       ============================================================ */
+    .nav-logo span {
+      cursor: pointer;
+      display: inline-block;
+      animation: dotpulse 3s ease-in-out infinite;
+    }
+    @keyframes dotpulse {
+      0%, 100% { text-shadow: 0 0 0px rgba(240,165,0,0); transform: scale(1); }
+      50%      { text-shadow: 0 0 10px rgba(240,165,0,0.85); transform: scale(1.25); }
+    }
+
+    /* Ambient hero ball canvas */
+    #hero-ball {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Game overlay */
+    .game-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      background: rgba(7, 9, 13, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .game-overlay.open { display: flex; }
+    .game-box {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-border);
+      border-radius: 14px;
+      padding: 22px 22px 18px;
+      width: 100%;
+      max-width: 524px;
+      position: relative;
+    }
+    .game-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .game-title {
+      font-family: var(--font-d);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .game-sub {
+      font-family: var(--font-d);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .game-instructions {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .game-instructions .k-teal { color: var(--t-level); font-weight: 600; }
+    .game-instructions .k-amber { color: var(--accent); font-weight: 600; }
+    #bal-canvas {
+      display: block;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--bg-border);
+      background: var(--bg);
+      cursor: crosshair;
+      touch-action: manipulation;
+    }
+    .game-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .game-level {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+    .game-btn {
+      font-family: var(--font-d);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--bg-border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .game-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .game-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 30px; height: 30px;
+      border: 1px solid var(--bg-border);
+      border-radius: 7px;
+      background: transparent;
+      color: var(--text);
+      font-size: 17px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .game-close:hover { border-color: var(--accent); }
+
+    /* Win panel inside the game box */
+    .game-win {
+      display: none;
+      text-align: center;
+      padding: 26px 10px 14px;
+    }
+    .game-win.show { display: block; }
+    .game-win h4 {
+      font-family: var(--font-d);
+      font-size: 19px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .game-win p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+    .game-win .cta-btn { font-size: 13px; padding: 11px 22px; }
+    .game-win .game-btn { margin-left: 10px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-logo span { animation: none; }
+    }
 
     /* ============================================================
        RESPONSIVE
@@ -928,7 +1082,7 @@
      NAV
      ============================================================ -->
 <nav id="main-nav">
-  <div class="nav-logo">CS<span>.</span></div>
+  <div class="nav-logo">CS<span id="bal-dot" title="?">.</span></div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
@@ -949,6 +1103,7 @@
      HERO
      ============================================================ -->
 <section id="hero">
+  <canvas id="hero-ball" aria-hidden="true"></canvas>
   <div class="container">
     <div class="hero-inner">
 
@@ -1090,7 +1245,7 @@
       <!-- Puzzle Solitaire — Tripledot (CURRENT) -->
       <div class="project-card has-detail" data-modal="puzzle-solitaire">
         <div class="project-thumb">
-          <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0a1f35 0%,#0d3255 100%);display:none">🃏</div>
           <span class="project-badge badge-pro">Current</span>
         </div>
@@ -1119,7 +1274,7 @@
       <!-- WTF: Waifu Tactical Force -->
       <div class="project-card has-detail" data-modal="wtf">
         <div class="project-thumb">
-          <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1f1020 0%,#2e1535 100%);display:none">🎮</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -1144,7 +1299,7 @@
       <!-- Contenders: Arena -->
       <div class="project-card has-detail" data-modal="contenders">
         <div class="project-thumb">
-          <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0d2030 0%,#0d3a52 100%);display:none">🎯</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -1170,7 +1325,7 @@
       <!-- Valthirian Arc: HSS2 -->
       <div class="project-card has-detail" data-modal="valthirian">
         <div class="project-thumb">
-          <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1330 0%,#2a1a48 100%);display:none">⚔️</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -1198,7 +1353,7 @@
       <!-- Tirta -->
       <div class="project-card has-detail" data-modal="tirta">
         <div class="project-thumb">
-          <img src="Tirta-logo.png" alt="Project Tirta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="Tirta-logo.png" alt="Project Tirta" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0b2222 0%,#143c3c 100%);display:none">🌊</div>
           <span class="project-badge badge-pro">Professional</span>
         </div>
@@ -1231,7 +1386,7 @@
       <!-- BAL Solid -->
       <div class="project-card has-detail" data-modal="bal-solid">
         <div class="project-thumb">
-          <img src="bal-solid-logo.png" alt="BAL Solid" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="bal-solid-logo.png" alt="BAL Solid" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1828 0%,#132840 100%);display:none">🧩</div>
           <span class="project-badge badge-personal">Solo / Released</span>
         </div>
@@ -1259,7 +1414,7 @@
       <!-- Howling Dark -->
       <div class="project-card has-detail" data-modal="howling-dark">
         <div class="project-thumb">
-          <img src="howling-dark-logo.png" alt="Howling Dark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="howling-dark-logo.png" alt="Howling Dark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a0808 0%,#2e1010 100%);display:none">👁</div>
           <span class="project-badge badge-personal">Personal</span>
         </div>
@@ -1285,7 +1440,7 @@
       <!-- Overwatch Level -->
       <div class="project-card has-detail" data-modal="overwatch">
         <div class="project-thumb">
-          <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#2a1206 0%,#3d1a0a 100%);display:none">🗺️</div>
           <span class="project-badge badge-personal">Level Study</span>
         </div>
@@ -1311,7 +1466,7 @@
       <!-- Genshin Dungeon -->
       <div class="project-card has-detail" data-modal="genshin">
         <div class="project-thumb">
-          <img src="genshin-logo.png" alt="Divine Ingenuity Dungeon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="genshin-logo.png" alt="Divine Ingenuity Dungeon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1a2e 0%,#16304d 100%);display:none">🏛️</div>
           <span class="project-badge badge-personal">Level Study</span>
         </div>
@@ -1334,7 +1489,7 @@
       <!-- Photosynthesis -->
       <div class="project-card has-detail" data-modal="photosynthesis">
         <div class="project-thumb">
-          <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#0c1f0c 0%,#163216 100%);display:none">🌿</div>
           <span class="project-badge badge-personal">Systems Study</span>
         </div>
@@ -1360,7 +1515,7 @@
       <!-- NOVA Legacy -->
       <div class="project-card has-detail" data-modal="nova">
         <div class="project-thumb">
-          <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy">
           <div class="thumb-placeholder" style="background:linear-gradient(135deg,#1a1800 0%,#352e00 100%);display:none">🚀</div>
           <span class="project-badge badge-personal">First Project</span>
         </div>
@@ -1540,8 +1695,10 @@
   <div class="container">
     <div class="section-label">Get in touch</div>
     <h2 class="section-title" style="margin-bottom: 16px;">Let's work together.</h2>
-    <p style="color: var(--text-muted); max-width: 460px; margin-bottom: 32px; line-height: 1.75;">
-      Open to new opportunities, collaborations, and interesting design conversations.
+    <p style="color: var(--text-muted); max-width: 540px; margin-bottom: 32px; line-height: 1.75;">
+      Open to <span style="color: var(--text);">game design, technical design, and system design roles</span> —
+      especially where AI-assisted workflows and design tooling can multiply a team's output.
+      Remote or on-site, anywhere.
     </p>
     <a href="mailto:chandra.sunarseto@live.com" class="cta-btn">
       Send me an email
@@ -1556,7 +1713,7 @@
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <span class="footer-copy">© 2026 Chandra Sunarseto — Work Smart, Play Hard.</span>
+      <span class="footer-copy">© 2026 Chandra Sunarseto — Work Smart, Play Hard.<span class="footer-hint">psst — the amber dot up top does something.</span></span>
       <div class="footer-links">
         <a href="https://www.linkedin.com/in/chandrasunarseto/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="resume.pdf" target="_blank" rel="noopener">CV</a>
@@ -1585,7 +1742,7 @@
   <!-- ===== BAL SOLID ===== -->
   <div data-modal-id="bal-solid">
     <div class="modal-media">
-      <img src="bal-solid-logo.png" alt="BAL Solid">
+      <img src="bal-solid-logo.png" alt="BAL Solid" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Seenchan Game · PC · Steam · Solo Project</div>
@@ -1673,8 +1830,8 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUALpsPgCmpF4hHG82Wp1NG5GOu0SH28hLfewZrYmRHY_rgSR0OWeYB7dA5DTFqBsTGLJc-NdTSz5FIcfqX9P4rVGG3yaKnoE0Xx4Rj3KcyVEKmXI9pl7U8aLLt1J_lxAemtMjYMYJBwKBYSf3FOdE9qpKyrAXx4dwOKS-QjzSl44hsnuEF4drtQoKE_8O8rYQiFpn3KIY_84m3SitdSTEpGeUYmCXIwhcGNsanSpFg=w1280" alt="BAL Solid gameplay" onerror="this.parentElement.style.display='none'">
-        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCh4dOD7rsYwq8cb2dOhN_BKQkMvYc-BftYtkDtWIPhrZ9AOBdmLHbReLXm-SX9V6OAStiNcIorUTG5oIqQvOKDINlBFnAoX7D-YE_jJ1TekccXiPRgI8ZkJiCXvJvbHDTQyMgupeQjbGw3ijuo3hBgwjTjNtMXcNXIynCdIZbuqKqZtqmDXnzP41F7Y5k=w1280" alt="BAL Solid mechanics" onerror="this.parentElement.style.display='none'">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUALpsPgCmpF4hHG82Wp1NG5GOu0SH28hLfewZrYmRHY_rgSR0OWeYB7dA5DTFqBsTGLJc-NdTSz5FIcfqX9P4rVGG3yaKnoE0Xx4Rj3KcyVEKmXI9pl7U8aLLt1J_lxAemtMjYMYJBwKBYSf3FOdE9qpKyrAXx4dwOKS-QjzSl44hsnuEF4drtQoKE_8O8rYQiFpn3KIY_84m3SitdSTEpGeUYmCXIwhcGNsanSpFg=w1280" alt="BAL Solid gameplay" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCh4dOD7rsYwq8cb2dOhN_BKQkMvYc-BftYtkDtWIPhrZ9AOBdmLHbReLXm-SX9V6OAStiNcIorUTG5oIqQvOKDINlBFnAoX7D-YE_jJ1TekccXiPRgI8ZkJiCXvJvbHDTQyMgupeQjbGw3ijuo3hBgwjTjNtMXcNXIynCdIZbuqKqZtqmDXnzP41F7Y5k=w1280" alt="BAL Solid mechanics" onerror="this.parentElement.style.display='none'" loading="lazy">
       </div>
 
       <div class="modal-store">
@@ -1686,7 +1843,7 @@
   <!-- ===== PUZZLE SOLITAIRE ===== -->
   <div data-modal-id="puzzle-solitaire">
     <div class="modal-media">
-      <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire">
+      <img src="puzzle-solitaire-logo.png" alt="Puzzle Solitaire" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Tripledot Studios · Mobile · Current Role</div>
@@ -1766,7 +1923,7 @@
   <!-- ===== WTF: WAIFU TACTICAL FORCE ===== -->
   <div data-modal-id="wtf">
     <div class="modal-media">
-      <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force">
+      <img src="wtf-logo.png" alt="WTF: Waifu Tactical Force" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Worlds · PC · Steam · Freelance</div>
@@ -1828,7 +1985,7 @@
   <!-- ===== CONTENDERS: ARENA ===== -->
   <div data-modal-id="contenders">
     <div class="modal-media">
-      <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena">
+      <img src="Contenders%20Arena%20-%20logo.png" alt="Contenders: Arena" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Gamecan · UE5 · PC / Console</div>
@@ -1900,7 +2057,7 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="contenders-level.png" alt="Contenders: Arena level" onerror="this.parentElement.style.display='none'">
+        <img src="contenders-level.png" alt="Contenders: Arena level" onerror="this.parentElement.style.display='none'" loading="lazy">
       </div>
 
       <div class="modal-store">
@@ -1912,7 +2069,7 @@
   <!-- ===== VALTHIRIAN ARC ===== -->
   <div data-modal-id="valthirian">
     <div class="modal-media">
-      <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2">
+      <img src="Valthirian%20Arc%202%20-%20logo.png" alt="Valthirian Arc: Hero School Story 2" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Agate International · UE4 · PC / Console</div>
@@ -1992,7 +2149,7 @@
   <!-- ===== TIRTA ===== -->
   <div data-modal-id="tirta">
     <div class="modal-media">
-      <iframe src="https://www.youtube.com/embed/HIDgYNY96kc?start=55" title="Tirta trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/HIDgYNY96kc?start=55" title="Tirta trailer" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Agate International · UE4 · PC · Unannounced</div>
@@ -2065,7 +2222,7 @@
 
       <div class="decision-head">Level Design</div>
       <div class="modal-shots">
-        <img src="tirta-level.png" alt="Tirta level design and pacing" onerror="this.parentElement.style.display='none'">
+        <img src="tirta-level.png" alt="Tirta level design and pacing" onerror="this.parentElement.style.display='none'" loading="lazy">
       </div>
 
       <div class="modal-store">
@@ -2077,7 +2234,7 @@
   <!-- ===== HOWLING DARK ===== -->
   <div data-modal-id="howling-dark">
     <div class="modal-media">
-      <img src="howling-dark-logo.png" alt="Howling Dark">
+      <img src="howling-dark-logo.png" alt="Howling Dark" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">UE4 · Horror Survival · Solo Game Jam</div>
@@ -2164,11 +2321,11 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="survival-resources.png" alt="Howling Dark resource needs" onerror="this.parentElement.style.display='none'">
-        <img src="survival-resourcegathering.png" alt="Howling Dark resource gathering" onerror="this.parentElement.style.display='none'">
-        <img src="survival-crafting.png" alt="Howling Dark crafting" onerror="this.parentElement.style.display='none'">
-        <img src="survival-enemy.png" alt="Howling Dark Specter enemy" onerror="this.parentElement.style.display='none'">
-        <img src="survival-quest.png" alt="Howling Dark quest system" onerror="this.parentElement.style.display='none'">
+        <img src="survival-resources.png" alt="Howling Dark resource needs" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="survival-resourcegathering.png" alt="Howling Dark resource gathering" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="survival-crafting.png" alt="Howling Dark crafting" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="survival-enemy.png" alt="Howling Dark Specter enemy" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="survival-quest.png" alt="Howling Dark quest system" onerror="this.parentElement.style.display='none'" loading="lazy">
       </div>
 
       <div class="modal-store">
@@ -2180,7 +2337,7 @@
   <!-- ===== OVERWATCH / ALASKAN OIL RIG ===== -->
   <div data-modal-id="overwatch">
     <div class="modal-media">
-      <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none'">
+      <img src="overwatch-level.png" alt="Alaskan Oil Rig CTF map" onerror="this.style.display='none'" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">UE5 · Capture the Flag · Level Study</div>
@@ -2276,7 +2433,7 @@
   <!-- ===== GENSHIN DUNGEON ===== -->
   <div data-modal-id="genshin">
     <div class="modal-media">
-      <img src="genshin-logo.png" alt="Divine Ingenuity Dungeon" onerror="this.style.display='none'">
+      <img src="genshin-logo.png" alt="Divine Ingenuity Dungeon" onerror="this.style.display='none'" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">Genshin Impact · Custom Dungeon · Level Study</div>
@@ -2365,7 +2522,7 @@
   <!-- ===== PHOTOSYNTHESIS ===== -->
   <div data-modal-id="photosynthesis">
     <div class="modal-media">
-      <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none'">
+      <img src="photosynthesis-logo.png" alt="Photosynthesis" onerror="this.style.display='none'" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">UE4 · Educational Simulation · Entry Test (3 days)</div>
@@ -2452,11 +2609,11 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="photosynthesis-growing.png" alt="Photosynthesis growing mechanic" onerror="this.parentElement.style.display='none'">
-        <img src="photosynthesis-environment.png" alt="Photosynthesis environment factors" onerror="this.parentElement.style.display='none'">
-        <img src="photosynthesis-quiz.png" alt="Photosynthesis quiz" onerror="this.parentElement.style.display='none'">
-        <img src="photosynthesis-education.png" alt="Photosynthesis education content" onerror="this.parentElement.style.display='none'">
-        <img src="photosynthesis-wiki.png" alt="Photosynthesis wiki" onerror="this.parentElement.style.display='none'">
+        <img src="photosynthesis-growing.png" alt="Photosynthesis growing mechanic" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="photosynthesis-environment.png" alt="Photosynthesis environment factors" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="photosynthesis-quiz.png" alt="Photosynthesis quiz" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="photosynthesis-education.png" alt="Photosynthesis education content" onerror="this.parentElement.style.display='none'" loading="lazy">
+        <img src="photosynthesis-wiki.png" alt="Photosynthesis wiki" onerror="this.parentElement.style.display='none'" loading="lazy">
       </div>
 
       <div class="modal-store">
@@ -2468,7 +2625,7 @@
   <!-- ===== NOVA LEGACY ===== -->
   <div data-modal-id="nova">
     <div class="modal-media">
-      <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none'">
+      <img src="nova-logo.png" alt="N.O.V.A. Legacy" onerror="this.style.display='none'" loading="lazy">
     </div>
     <div class="modal-body">
       <div class="modal-eyebrow">In-House Engine · Java · Gameloft · First Project</div>
@@ -2556,6 +2713,8 @@
     </div>
   </div>
 
+</div><!-- /modal-store -->
+
 
 <!-- ============================================================
      SCROLL-SPY
@@ -2632,6 +2791,387 @@
     overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+    });
+  })();
+</script>
+
+
+<!-- ============================================================
+     BAL MINI — hidden game behind the amber dot
+     ============================================================ -->
+<div class="game-overlay" id="game-overlay" role="dialog" aria-modal="true" aria-label="BAL Mini game">
+  <div class="game-box">
+    <button class="game-close" id="game-close" aria-label="Close">×</button>
+    <div class="game-head">
+      <span class="game-title">BAL Mini</span>
+      <span class="game-sub">one block, many behaviors</span>
+    </div>
+    <p class="game-instructions">
+      Click the <span class="k-teal">teal blocks</span> to clear a path.
+      Get the ball to the <span class="k-amber">amber pad</span>.
+    </p>
+    <div id="game-play-area">
+      <canvas id="bal-canvas"></canvas>
+      <div class="game-foot">
+        <span class="game-level" id="game-level">LEVEL 1 / 3</span>
+        <button class="game-btn" id="game-reset">Reset level</button>
+      </div>
+    </div>
+    <div class="game-win" id="game-win">
+      <h4>You found the secret — and beat my smallest game. 🏆</h4>
+      <p>
+        Every obstacle you just clicked was the same block with different behaviors toggled —
+        the exact design philosophy behind my Steam release. The full game has 70 levels
+        and 100% positive reviews.
+      </p>
+      <a href="https://store.steampowered.com/app/1365630/BAL_Solid/" class="cta-btn" target="_blank" rel="noopener">Play BAL Solid on Steam</a>
+      <button class="game-btn" id="game-replay">Replay</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     AMBIENT HERO BALL
+     ============================================================ -->
+<script>
+  (() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const canvas = document.getElementById('hero-ball');
+    const hero   = document.getElementById('hero');
+    if (!canvas || !hero) return;
+    const ctx = canvas.getContext('2d');
+
+    let W, H, dpr;
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = hero.clientWidth; H = hero.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const ball = { x: W * 0.7, y: H * 0.3, vx: 0.5, vy: 0.4, r: 9 };
+    const mouse = { x: -9999, y: -9999 };
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    const tick = () => {
+      // gentle cursor repulsion
+      const dx = ball.x - mouse.x, dy = ball.y - mouse.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < 16900 && d2 > 1) { // within 130px
+        const d = Math.sqrt(d2);
+        ball.vx += (dx / d) * 0.18;
+        ball.vy += (dy / d) * 0.18;
+      }
+      // speed cap + soft friction
+      ball.vx *= 0.995; ball.vy *= 0.995;
+      const sp = Math.hypot(ball.vx, ball.vy);
+      if (sp > 2.4) { ball.vx = ball.vx / sp * 2.4; ball.vy = ball.vy / sp * 2.4; }
+      if (sp < 0.35) { ball.vx += (Math.random() - 0.5) * 0.1; ball.vy += (Math.random() - 0.5) * 0.1; }
+
+      ball.x += ball.vx; ball.y += ball.vy;
+      if (ball.x < ball.r) { ball.x = ball.r; ball.vx *= -1; }
+      if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx *= -1; }
+      if (ball.y < ball.r) { ball.y = ball.r; ball.vy *= -1; }
+      if (ball.y > H - ball.r) { ball.y = H - ball.r; ball.vy *= -1; }
+
+      ctx.clearRect(0, 0, W, H);
+      const g = ctx.createRadialGradient(ball.x, ball.y, 0, ball.x, ball.y, ball.r * 3.2);
+      g.addColorStop(0, 'rgba(240,165,0,0.32)');
+      g.addColorStop(1, 'rgba(240,165,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r * 3.2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(240,165,0,0.78)';
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+
+      requestAnimationFrame(tick);
+    };
+    tick();
+  })();
+</script>
+
+
+<!-- ============================================================
+     BAL MINI GAME ENGINE
+     ============================================================ -->
+<script>
+  (() => {
+    const overlay  = document.getElementById('game-overlay');
+    const canvas   = document.getElementById('bal-canvas');
+    const ctx      = canvas.getContext('2d');
+    const levelEl  = document.getElementById('game-level');
+    const winEl    = document.getElementById('game-win');
+    const playEl   = document.getElementById('game-play-area');
+
+    // Logical playfield
+    const W = 480, H = 420;
+    const COL = {
+      ball: '#F0A500', goal: '#F0A500',
+      destroy: '#4EC4A0', bouncy: '#FF7B7B', spin: '#8B87FF',
+      solid: '#1F2D3D', solidFill: '#141B27', bg: '#0E1117'
+    };
+    const GRAV = 0.22, REST = 0.55;
+
+    let raf = null, level = 0, ball, blocks, spinners, goal, particles, levelDone;
+
+    // --- Level definitions -------------------------------------------------
+    // type: solid (indestructible) | destroy (click to remove) | bouncy (restitution>1)
+    const LEVELS = [
+      { // L1 — learn: click teal to clear the way
+        ballStart: { x: 240, y: 36 },
+        goal: { x: 195, w: 90 },
+        blocks: [
+          { x: 150, y: 220, w: 60, h: 22, t: 'destroy' },
+          { x: 210, y: 220, w: 60, h: 22, t: 'destroy' },
+          { x: 270, y: 220, w: 60, h: 22, t: 'destroy' },
+          { x: 60,  y: 220, w: 90, h: 22, t: 'solid' },
+          { x: 330, y: 220, w: 90, h: 22, t: 'solid' },
+        ],
+        spinners: []
+      },
+      { // L2 — the red block launches you; clear the teal wall mid-flight
+        ballStart: { x: 60, y: 40, vx: 2.2, vy: 0 },
+        goal: { x: 300, w: 120 },
+        blocks: [
+          { x: 110, y: 240, w: 120, h: 20, t: 'bouncy' },
+          { x: 255, y: 60,  w: 22,  h: 140, t: 'destroy' },
+          { x: 255, y: 200, w: 22,  h: 140, t: 'destroy' },
+        ],
+        spinners: []
+      },
+      { // L3 — the spinner adds chaos
+        ballStart: { x: 240, y: 36 },
+        goal: { x: 195, w: 90 },
+        blocks: [
+          { x: 130, y: 290, w: 70, h: 20, t: 'destroy' },
+          { x: 205, y: 290, w: 70, h: 20, t: 'destroy' },
+          { x: 280, y: 290, w: 70, h: 20, t: 'destroy' },
+          { x: 40,  y: 290, w: 90, h: 20, t: 'solid' },
+          { x: 350, y: 290, w: 90, h: 20, t: 'solid' },
+        ],
+        spinners: [ { cx: 240, cy: 160, len: 130, th: 10, a: 0, spd: 0.022 } ]
+      }
+    ];
+
+    // --- Setup --------------------------------------------------------------
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.aspectRatio = `${W} / ${H}`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const loadLevel = (i) => {
+      const L = LEVELS[i];
+      ball = { x: L.ballStart.x, y: L.ballStart.y, vx: L.ballStart.vx || 0, vy: L.ballStart.vy || 0, r: 10 };
+      blocks = L.blocks.map(b => ({ ...b }));
+      spinners = L.spinners.map(s => ({ ...s }));
+      goal = L.goal;
+      particles = [];
+      levelDone = false;
+      levelEl.textContent = `LEVEL ${i + 1} / 3`;
+    };
+
+    // --- Physics helpers ----------------------------------------------------
+    const collideRect = (b, r) => {
+      const cx = Math.max(r.x, Math.min(b.x, r.x + r.w));
+      const cy = Math.max(r.y, Math.min(b.y, r.y + r.h));
+      const dx = b.x - cx, dy = b.y - cy;
+      const d2 = dx * dx + dy * dy;
+      if (d2 >= b.r * b.r || d2 === 0) return false;
+      const d = Math.sqrt(d2);
+      const nx = dx / d, ny = dy / d;
+      b.x = cx + nx * b.r; b.y = cy + ny * b.r;
+      const vn = b.vx * nx + b.vy * ny;
+      if (vn < 0) {
+        b.vx -= (1 + REST) * vn * nx;
+        b.vy -= (1 + REST) * vn * ny;
+      }
+      // bouncy top surface = deterministic launcher (tuned to the level math)
+      if (r.t === 'bouncy' && ny < -0.5) b.vy = -6.8;
+      return true;
+    };
+
+    const collideSpinner = (b, s) => {
+      const cos = Math.cos(s.a), sin = Math.sin(s.a);
+      // ball in spinner-local space
+      const lx =  cos * (b.x - s.cx) + sin * (b.y - s.cy);
+      const ly = -sin * (b.x - s.cx) + cos * (b.y - s.cy);
+      const hw = s.len / 2, hh = s.th / 2;
+      const cxl = Math.max(-hw, Math.min(lx, hw));
+      const cyl = Math.max(-hh, Math.min(ly, hh));
+      const dx = lx - cxl, dy = ly - cyl;
+      const d2 = dx * dx + dy * dy;
+      if (d2 >= b.r * b.r || d2 === 0) return;
+      const d = Math.sqrt(d2);
+      let nxl = dx / d, nyl = dy / d;
+      // push out (local), back to world
+      const px = cxl + nxl * b.r, py = cyl + nyl * b.r;
+      b.x = s.cx + cos * px - sin * py;
+      b.y = s.cy + sin * px + cos * py;
+      const nx = cos * nxl - sin * nyl;
+      const ny = sin * nxl + cos * nyl;
+      const vn = b.vx * nx + b.vy * ny;
+      if (vn < 0) {
+        b.vx -= (1 + 0.8) * vn * nx;
+        b.vy -= (1 + 0.8) * vn * ny;
+      }
+      // tangential kick from rotation
+      b.vx += -ny * s.spd * 60 * 0.4;
+      b.vy +=  nx * s.spd * 60 * 0.4;
+    };
+
+    const pop = (x, y, color) => {
+      for (let i = 0; i < 10; i++) {
+        const a = Math.random() * Math.PI * 2, sp = 1 + Math.random() * 2.4;
+        particles.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, color });
+      }
+    };
+
+    // --- Main loop ----------------------------------------------------------
+    const tick = () => {
+      // physics
+      if (!levelDone) {
+        ball.vy += GRAV;
+        ball.x += ball.vx; ball.y += ball.vy;
+        if (ball.x < ball.r) { ball.x = ball.r; ball.vx *= -REST; }
+        if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx *= -REST; }
+        if (ball.y < ball.r) { ball.y = ball.r; ball.vy *= -REST; }
+
+        blocks.forEach(b => collideRect(ball, b));
+        spinners.forEach(s => { s.a += s.spd; collideSpinner(ball, s); });
+
+        // floor: goal or reset
+        if (ball.y > H - ball.r - 14) {
+          if (ball.x > goal.x && ball.x < goal.x + goal.w) {
+            levelDone = true;
+            pop(ball.x, H - 20, COL.goal);
+            setTimeout(() => {
+              if (level < LEVELS.length - 1) { level++; loadLevel(level); }
+              else { playEl.style.display = 'none'; winEl.classList.add('show'); }
+            }, 650);
+          } else {
+            pop(ball.x, H - 16, '#6E7E90');
+            const L = LEVELS[level];
+            ball.x = L.ballStart.x; ball.y = L.ballStart.y;
+            ball.vx = L.ballStart.vx || 0; ball.vy = L.ballStart.vy || 0;
+          }
+        }
+      }
+
+      // draw
+      ctx.fillStyle = COL.bg; ctx.fillRect(0, 0, W, H);
+      // faint grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)'; ctx.lineWidth = 1;
+      for (let x = 0; x <= W; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+      for (let y = 0; y <= H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      // floor
+      ctx.fillStyle = COL.solidFill; ctx.fillRect(0, H - 14, W, 14);
+      ctx.strokeStyle = COL.solid; ctx.strokeRect(0.5, H - 13.5, W - 1, 13);
+      // goal pad
+      ctx.fillStyle = COL.goal;
+      ctx.fillRect(goal.x, H - 18, goal.w, 6);
+      ctx.fillStyle = 'rgba(240,165,0,0.14)';
+      ctx.fillRect(goal.x, H - 90, goal.w, 72);
+      // blocks
+      blocks.forEach(b => {
+        if (b.t === 'destroy') { ctx.fillStyle = 'rgba(78,196,160,0.16)'; ctx.strokeStyle = COL.destroy; }
+        else if (b.t === 'bouncy') { ctx.fillStyle = 'rgba(255,123,123,0.16)'; ctx.strokeStyle = COL.bouncy; }
+        else { ctx.fillStyle = COL.solidFill; ctx.strokeStyle = COL.solid; }
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+        ctx.lineWidth = 1.5; ctx.strokeRect(b.x + 0.75, b.y + 0.75, b.w - 1.5, b.h - 1.5);
+      });
+      // spinners
+      spinners.forEach(s => {
+        ctx.save();
+        ctx.translate(s.cx, s.cy); ctx.rotate(s.a);
+        ctx.fillStyle = 'rgba(139,135,255,0.18)';
+        ctx.strokeStyle = COL.spin; ctx.lineWidth = 1.5;
+        ctx.fillRect(-s.len / 2, -s.th / 2, s.len, s.th);
+        ctx.strokeRect(-s.len / 2, -s.th / 2, s.len, s.th);
+        ctx.restore();
+        ctx.fillStyle = COL.spin;
+        ctx.beginPath(); ctx.arc(s.cx, s.cy, 3.5, 0, Math.PI * 2); ctx.fill();
+      });
+      // particles
+      particles = particles.filter(p => (p.life -= 0.035) > 0);
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.08;
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 3 * p.life, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+      // ball
+      const g = ctx.createRadialGradient(ball.x, ball.y, 0, ball.x, ball.y, ball.r * 2.4);
+      g.addColorStop(0, 'rgba(240,165,0,0.35)'); g.addColorStop(1, 'rgba(240,165,0,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r * 2.4, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = COL.ball;
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+
+      raf = requestAnimationFrame(guardedTick);
+    };
+
+    // One bad frame shouldn't kill the game forever — log, then keep running.
+    const guardedTick = () => {
+      try { tick(); }
+      catch (err) {
+        console.error('BAL Mini frame error:', err);
+        raf = requestAnimationFrame(guardedTick);
+      }
+    };
+
+    // --- Input ---------------------------------------------------------------
+    canvas.addEventListener('pointerdown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX - rect.left) * (W / rect.width);
+      const y = (e.clientY - rect.top) * (H / rect.height);
+      for (let i = blocks.length - 1; i >= 0; i--) {
+        const b = blocks[i];
+        if (b.t === 'destroy' && x > b.x && x < b.x + b.w && y > b.y && y < b.y + b.h) {
+          pop(b.x + b.w / 2, b.y + b.h / 2, COL.destroy);
+          blocks.splice(i, 1);
+          break;
+        }
+      }
+    });
+
+    // --- Open / close --------------------------------------------------------
+    const openGame = () => {
+      level = 0;
+      loadLevel(0);
+      winEl.classList.remove('show');
+      playEl.style.display = '';
+      overlay.classList.add('open');
+      document.body.classList.add('modal-open');
+      if (!raf) guardedTick();
+    };
+    const closeGame = () => {
+      overlay.classList.remove('open');
+      document.body.classList.remove('modal-open');
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+    };
+
+    document.getElementById('bal-dot').addEventListener('click', openGame);
+    document.getElementById('game-close').addEventListener('click', closeGame);
+    document.getElementById('game-reset').addEventListener('click', () => {
+      loadLevel(level);
+      if (!raf) guardedTick();   // revive the loop if it ever died
+    });
+    document.getElementById('game-replay').addEventListener('click', () => {
+      level = 0; loadLevel(0);
+      winEl.classList.remove('show');
+      playEl.style.display = '';
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeGame(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeGame();
     });
   })();
 </script>
