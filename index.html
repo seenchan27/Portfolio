@@ -1596,10 +1596,10 @@
         <span class="dtag dtag-level">Level</span>
       </div>
       <p class="modal-intro">
-        A relaxing physics-based ball puzzle, designed, built, and shipped to Steam
-        entirely solo in ~110 hours. I built it as a deliberate exercise in finishing
-        and releasing a game — and in designing systems lean enough for one person to
-        ship, yet deep enough to carry 70 levels.
+        A relaxing physics ball puzzle I designed, built, and shipped to Steam completely
+        alone in ~110 hours. The mission I gave myself was simple: stop prototyping forever
+        and actually <em>finish and release</em> a game — which meant every system had to be
+        lean enough for one person, but deep enough to carry 70 levels.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
@@ -1609,63 +1609,63 @@
           <div class="decision-title">One flexible block, hundreds of puzzles</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Solo dev — no time to build many distinct object types.</span>
+            <span class="decision-text">I'm a one-man team — there was no way I could afford building tons of different object types.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed a <strong>single block with toggle-able behaviors</strong> — resize, destroy, rotate, move, emit wind, or kill on touch.</span>
+            <span class="decision-text">So I made <strong>one block that can do everything</strong> — resize, get destroyed, rotate, move, blow wind, or kill the ball on touch. Just toggle what you need.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">One reusable object generated the building blocks for the entire game — minimal tech cost, maximum design range.</span>
+            <span class="decision-text">That single object became the building block of the entire game. Minimal tech cost, basically unlimited puzzle variety.</span>
           </div>
         </div>
 
         <div class="decision-card">
-          <div class="decision-title">Physics as a feature, not a liability</div>
+          <div class="decision-title">Physics: a double-edged sword</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Physics creates wow-moments and player expression, but also inconsistent, hard-to-repeat results.</span>
+            <span class="decision-text">Physics gives you those "whoa" moments and lets players express themselves — but it also makes results inconsistent and hard to repeat. Classic double-edged sword.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Leaned into the upside, then <strong>guaranteed every level was solvable multiple ways</strong> to absorb the inconsistency.</span>
+            <span class="decision-text">I leaned into the fun side, then covered the sharp edge: <strong>every level must be solvable in multiple ways</strong>.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">The "double-edged sword" became a strength — players get a different solve each run instead of a broken puzzle.</span>
+            <span class="decision-text">Instead of a broken puzzle when physics misbehaves, players just discover a different solve each run. The flaw became the feature.</span>
           </div>
         </div>
 
         <div class="decision-card">
-          <div class="decision-title">A 4-rule pacing system for level order</div>
+          <div class="decision-title">My 4-rule pacing system</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">70 levels risk feeling repetitive or spiking in difficulty.</span>
+            <span class="decision-text">70 levels in a row can easily turn into a repetitive grind — or worse, a difficulty wall.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Classified every level as Simple, Reflex, Trial-and-error, or Complex, then <strong>interleaved the types</strong> to give rest after hard puzzles.</span>
+            <span class="decision-text">I sorted every level into 4 types — Simple, Reflex, Trial-and-error, Complex — then <strong>interleaved them</strong> so a tough puzzle is always followed by a breather.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">A rhythm that keeps players challenged without burning them out — and a reusable rule for ordering future content.</span>
+            <span class="decision-text">A rhythm that keeps players challenged without burning them out — and a reusable rule I can apply to any future content.</span>
           </div>
         </div>
 
         <div class="decision-card">
-          <div class="decision-title">Achievements tuned to player archetypes</div>
+          <div class="decision-title">Achievements for every player type</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Completing a puzzle only rewards Explorer-type players.</span>
+            <span class="decision-text">Solving puzzles only really rewards the Explorer type. What about everyone else?</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Added an achievement list, Steam notifications, and <strong>alphanumeric achievement icons</strong> — targeting Achiever and Fighter/Socialiser types.</span>
+            <span class="decision-text">I added an achievement list with Steam notifications and <strong>alphanumeric achievement icons</strong> — bait for the Achievers, plus a bit of show-off material for the Fighter/Socialiser types.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">A deliberately niche reward structure for a niche market — and 100% positive reviews on release.</span>
+            <span class="decision-text">A deliberately niche reward structure for a niche market — and it landed: 100% positive reviews on release.</span>
           </div>
         </div>
 
@@ -1697,10 +1697,10 @@
         <span class="dtag dtag-ai">AI Tooling</span>
       </div>
       <p class="modal-intro">
-        As Level Designer on a live mobile title, my focus is less on hand-placing
-        every level and more on building the systems that let the team produce them
-        at scale. The headline result: a level pipeline that turned a 3–4 week build
-        cycle into under a week — with AI doing the heavy lifting and me owning the design.
+        My current gig. As Level Designer on a live mobile title, I spend less time
+        hand-placing levels and more time building the systems that let the whole team
+        produce them at scale. The headline: a level pipeline that turned a 3–4 week
+        build cycle into under a week — AI does the heavy lifting, I own the design.
       </p>
 
       <div class="decision-head">What I Build</div>
@@ -1710,11 +1710,11 @@
           <div class="decision-title">AI-assisted level editor tooling</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">High-volume mobile puzzle content is slow and repetitive to author by hand.</span>
+            <span class="decision-text">High-volume mobile puzzle content is slow and honestly pretty repetitive to author by hand.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed editor tooling with <strong>AI-assisted generation built into the workflow</strong>, keeping a human designer in the loop for quality.</span>
+            <span class="decision-text">I built editor tooling with <strong>AI-assisted generation baked into the workflow</strong> — with a human designer always in the loop for quality.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
@@ -1742,15 +1742,15 @@
           <div class="decision-title">AI as a daily design tool</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">AI tools are easy to bolt on, hard to make genuinely productive day-to-day.</span>
+            <span class="decision-text">Bolting AI onto a workflow is easy. Making it genuinely productive every single day is the hard part.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Treat AI as an <strong>execution accelerator under designer-owned system design</strong> — not a replacement for design judgment.</span>
+            <span class="decision-text">My rule: <strong>I own the system design, AI accelerates the execution</strong> — never the other way around.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Fluent, daily AI-assisted workflow that compounds the team's output.</span>
+            <span class="decision-text">A fluent daily AI workflow that compounds the whole team's output.</span>
           </div>
         </div>
 
@@ -1776,9 +1776,10 @@
         <span class="dtag dtag-system">System</span>
       </div>
       <p class="modal-intro">
-        An anime tactical FPS I contributed to on a freelance basis. My work centered
-        on making the weapons feel fair and distinct through data, and on helping a
-        growing team put repeatable design and documentation practices in place.
+        An anime tactical FPS I worked on as a freelancer — yes, the name is intentional.
+        My job was making the weapons feel distinct but fair through actual data instead
+        of vibes, and helping a young team set up design workflows and documentation
+        that would outlive my contract.
       </p>
 
       <div class="decision-head">My Contribution</div>
@@ -1838,9 +1839,10 @@
         <span class="dtag dtag-3c">3C</span>
       </div>
       <p class="modal-intro">
-        A fast-paced 3v3 hero shooter where you pilot a gladiator into intense, mobility-driven
-        battles. I joined in early production as a Level Designer and grew into ability design,
-        weapon balancing, and 3C work across all three classes.
+        A fast-paced 3v3 hero shooter where you pilot a gladiator into mobility-driven
+        battles — and my ticket to Estonia. I joined in early production as a Level
+        Designer, then kept picking up more: ability design, weapon balancing, and 3C
+        work across all three classes.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
@@ -1850,15 +1852,15 @@
           <div class="decision-title">Openness that serves movement</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">A hero shooter built on mobility needs maps that let movement breathe.</span>
+            <span class="decision-text">When your hero shooter is built on mobility, cramped maps kill the whole point.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed the TDM map to <strong>push the movement mechanics as far as possible</strong> — openness feeding both traversal and combat.</span>
+            <span class="decision-text">I designed the TDM map to <strong>push the movement mechanics as far as they'd go</strong> — open spaces that feed both traversal and combat.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">The level reached the final shipped build; others stayed in testing.</span>
+            <span class="decision-text">My level made it into the final shipped build — the others stayed in testing.</span>
           </div>
         </div>
 
@@ -1866,15 +1868,15 @@
           <div class="decision-title">Range across game modes</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Different modes (TDM, Tutorial, Racing) demand very different spatial design.</span>
+            <span class="decision-text">TDM, Tutorial, and Racing each want completely different things from a space.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed <strong>5+ levels spanning all three modes</strong>, each tuned to its own goals.</span>
+            <span class="decision-text">I built <strong>5+ levels spanning all three modes</strong>, each tuned to its own job.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">A demonstrated range from competitive combat spaces to teaching and time-trial layouts.</span>
+            <span class="decision-text">Proof I can go from competitive combat spaces to teaching layouts to time-trial tracks.</span>
           </div>
         </div>
 
@@ -1882,11 +1884,11 @@
           <div class="decision-title">3C tuning across every class</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Each class plays differently, so one camera setup can't serve all of them.</span>
+            <span class="decision-text">Each class plays differently — one camera setup can't serve them all.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Adjusted <strong>camera position and shake per class and ability</strong>, plus weapon fine-tuning for fairness.</span>
+            <span class="decision-text">I tuned <strong>camera position and shake per class and per ability</strong>, plus weapon fine-tuning to keep things fair.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
@@ -1898,7 +1900,7 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUCX3-5WcDA7MIng8aJ8ndsAW6WCBSj-Q_WN5QI6VlVNvWvslsfkRgBb7nRYElahRrMA72_N9Wp9hZ-mkqAKV2JTL7ONCPa8DpVydXFQvARz8O3smHbrSbjDwdGImuGkAv2WM2JVco4VoDaqtN4HYGBKaMTCoeMqvU_O3TxyY9jEpNuInIBvHg0T0P0YHZfQW3crPWJk_k_BRTaEf9XXtR9tTWuDsqzrWP6wVQgviFg=w1280" alt="Contenders: Arena level" onerror="this.parentElement.style.display='none'">
+        <img src="contenders-level.png" alt="Contenders: Arena level" onerror="this.parentElement.style.display='none'">
       </div>
 
       <div class="modal-store">
@@ -1922,10 +1924,10 @@
         <span class="dtag dtag-3c">3C</span>
       </div>
       <p class="modal-intro">
-        Run your own hero school — manage faculty, grow a roster of students, and rise among
-        the world's most prestigious academies. Across Senior and Lead Designer roles, I owned
-        economy balance, the proficiency &amp; battle-stats systems, UX, and 3C across base-building
-        and battle modes.
+        Run your own hero school: manage faculty, raise a roster of students, and climb
+        the ranks of the world's academies. This was my home for three years at Agate —
+        I started as Senior Designer and finished as Lead, owning the economy, the
+        proficiency &amp; battle-stats systems, UX, and 3C across both base-building and battle.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
@@ -1935,15 +1937,15 @@
           <div class="decision-title">An Excel simulator for economy balance</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Balancing a two-resource economy by playtesting alone is slow and imprecise.</span>
+            <span class="decision-text">Balancing a two-resource economy by playtesting alone is painfully slow — and you're mostly guessing.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Built an <strong>Excel simulator mirroring the in-game economy</strong> to predict and tune balance before implementation.</span>
+            <span class="decision-text">I built an <strong>Excel simulator that mirrors the in-game economy</strong>, so I could predict and tune the balance before anything got implemented.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Faster, data-backed balancing and far fewer costly in-engine iterations.</span>
+            <span class="decision-text">Data-backed balancing decisions and far fewer expensive in-engine iterations.</span>
           </div>
         </div>
 
@@ -1951,15 +1953,15 @@
           <div class="decision-title">A monster placement tool for the team</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Placing and editing monsters was eating level designers' time.</span>
+            <span class="decision-text">Placing and editing monsters was quietly eating my level designers' time.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed an <strong>improved placement system</strong> that made editing fast and approachable.</span>
+            <span class="decision-text">I designed an <strong>improved placement system</strong> that made the whole job fast and painless.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Cut designer workload on that task by ~60%.</span>
+            <span class="decision-text">Cut designer workload on that task by ~60%. The team got their hours back.</span>
           </div>
         </div>
 
@@ -1967,15 +1969,15 @@
           <div class="decision-title">Systems legible to players and designers</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">The proficiency &amp; battle-stats systems were hard for players to grasp and for designers to tweak.</span>
+            <span class="decision-text">The proficiency &amp; battle-stats systems confused players — and honestly, they weren't much fun for designers to tweak either.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Reworked them to be <strong>clearer for players and easier to modify</strong>, and improved the FTUE highlight system designers control directly.</span>
+            <span class="decision-text">I reworked them to be <strong>clearer for players and easier to modify for us</strong>, and rebuilt the FTUE highlight system so designers control it directly.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">UX improvements validated by player surveys; FTUE changes raised retention.</span>
+            <span class="decision-text">Player surveys validated the UX improvements, and the FTUE changes raised retention.</span>
           </div>
         </div>
 
@@ -2002,9 +2004,10 @@
         <span class="dtag dtag-ux">UX</span>
       </div>
       <p class="modal-intro">
-        A 3rd-person puzzle action-adventure I joined at the prototype stage. I owned 3C,
-        built and modified levels from paper design through blockout, designed and prototyped
-        the puzzle mechanics, and implemented the UI.
+        A 3rd-person puzzle action-adventure I joined at the prototype stage — still
+        unannounced, so the trailer above is all I can show. I owned the 3C, built
+        levels from paper sketch to blockout, designed and prototyped the puzzle
+        mechanics, and implemented the UI.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
@@ -2060,6 +2063,11 @@
 
       </div>
 
+      <div class="decision-head">Level Design</div>
+      <div class="modal-shots">
+        <img src="tirta-level.png" alt="Tirta level design and pacing" onerror="this.parentElement.style.display='none'">
+      </div>
+
       <div class="modal-store">
         <a href="https://youtu.be/HIDgYNY96kc?si=VNfBtB-2sWG52oQ0&t=55" class="store-link" target="_blank" rel="noopener">Watch Full Trailer</a>
       </div>
@@ -2079,10 +2087,10 @@
         <span class="dtag dtag-tech">Technical</span>
       </div>
       <p class="modal-intro">
-        A narratively-driven survival horror set in space — imagine The Forest, in pitch black.
-        I built it solo in one week for an internal Gamecan game jam, which forced ruthless
-        prioritization: ship complete, interlocking systems fast by making each one reusable
-        and data-driven.
+        A narrative survival horror set in space — picture The Forest, but in pitch black.
+        I built it solo in one week for an internal Gamecan game jam, which meant ruthless
+        prioritization: if a system couldn't be made reusable and data-driven, it didn't
+        get made.
       </p>
 
       <div class="decision-head">Systems Built in 10 Days</div>
@@ -2092,15 +2100,15 @@
           <div class="decision-title">Mining with a randomized spawner</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Resource gathering is core to survival, but hand-placing resources is slow and makes runs repetitive.</span>
+            <span class="decision-text">Resource gathering is the core of survival — but hand-placing resources is slow, and makes every run identical.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Built a mining system with a <strong>randomized spawner</strong>.</span>
+            <span class="decision-text">I built the mining system around a <strong>randomized spawner</strong> instead.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Cut implementation time sharply and made every run feel different.</span>
+            <span class="decision-text">Way less implementation time, and every run feels different. Two birds, one stone.</span>
           </div>
         </div>
 
@@ -2108,15 +2116,15 @@
           <div class="decision-title">Data-driven crafting</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Crafting needs frequent rebalancing during a fast jam build.</span>
+            <span class="decision-text">In a one-week jam, crafting recipes need rebalancing constantly — I couldn't afford to touch code every time.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Backed crafting with an <strong>easily editable database</strong> for quick balancing.</span>
+            <span class="decision-text">I backed crafting with an <strong>easily editable database</strong>.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Recipes and costs tunable without touching code.</span>
+            <span class="decision-text">Recipes and costs tunable in seconds, zero code changes.</span>
           </div>
         </div>
 
@@ -2124,15 +2132,15 @@
           <div class="decision-title">Costly combat against the Specter</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">A horror monster must threaten without becoming a simple shooting gallery.</span>
+            <span class="decision-text">A horror monster has to stay scary — give players too much firepower and it becomes a shooting gallery.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Gave the player a tool to fight back, but made <strong>combat expensive in resources</strong>.</span>
+            <span class="decision-text">I let the player fight back, but made <strong>combat expensive in resources</strong>.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Tension between fighting and conserving — the heart of the survival loop.</span>
+            <span class="decision-text">Every encounter becomes a question: fight or conserve? That tension <em>is</em> the survival loop.</span>
           </div>
         </div>
 
@@ -2140,15 +2148,15 @@
           <div class="decision-title">Needs that drive the night loop</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Survival pressure needs a constant, escalating source.</span>
+            <span class="decision-text">Survival pressure needs a source that never stops ticking.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Implemented <strong>oxygen and electricity needs</strong> (plus a risky openable helm) that bite hardest during the long night.</span>
+            <span class="decision-text">I added <strong>oxygen and electricity needs</strong> — plus an openable helm for risk-takers — that bite hardest during the long night.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">A steady survival clock pushing players to manage resources and risk.</span>
+            <span class="decision-text">A constant survival clock that forces players to weigh every resource and every risk.</span>
           </div>
         </div>
 
@@ -2156,8 +2164,11 @@
 
       <div class="decision-head">Screenshots</div>
       <div class="modal-shots">
-        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUComaYUNH53lbKxm900DrqpcPkUPRyeHhxwXGCfKNG8y-RsFyF3Xjw-oZW9KJUNehwwwUaMKjUoy1r5yJQdUDMJeLO8zlj0XbKImFn73L20QpDsz7equ91ajykYDYXLXF7e2czZzw31FB3xUBX1-qP7k1iJ4SR9A5Z9Ic_yLXLnqBIVcYZvna0jUa2TZ81W86AhAqKDJwC6OGhUHlq0IEe213XTyTVIB1FVBbev=w1280" alt="Howling Dark" onerror="this.parentElement.style.display='none'">
-        <img src="https://lh3.googleusercontent.com/sitesv/AA5AbUBuYvR57s7WgC2q9gjDtDk8LeUVDNA9-GH5BBTPehVE8mw3IrpVK3jvl6_K-eEBe6BWDAJjT4ZlDZA781uxyytBTGgTtRh-fSa21CvX9rOj8ObdOfq5Hr5Vr3daC1sAv2h1T_GWiR_-N9hnR6UKrrayjY7y6_rFJ60C5Gfd9KuHIBxlSYJTneCGYL7U3SRSVhtpZbdcWjUNVAnid4_lwd0mSpElHVsCE5nDot3r=w1280" alt="Howling Dark mining" onerror="this.parentElement.style.display='none'">
+        <img src="survival-resources.png" alt="Howling Dark resource needs" onerror="this.parentElement.style.display='none'">
+        <img src="survival-resourcegathering.png" alt="Howling Dark resource gathering" onerror="this.parentElement.style.display='none'">
+        <img src="survival-crafting.png" alt="Howling Dark crafting" onerror="this.parentElement.style.display='none'">
+        <img src="survival-enemy.png" alt="Howling Dark Specter enemy" onerror="this.parentElement.style.display='none'">
+        <img src="survival-quest.png" alt="Howling Dark quest system" onerror="this.parentElement.style.display='none'">
       </div>
 
       <div class="modal-store">
@@ -2179,43 +2190,61 @@
         <span class="dtag dtag-3c">Combat</span>
       </div>
       <p class="modal-intro">
-        A 6v6 Capture-the-Flag map set on a cyberpunk offshore oil rig in Alaska, built to
-        train FPS level design and learn UE5. The brief: a balanced arena for all engagement
-        ranges, with enough corners to create tension and enough connectivity to reward flanking.
+        A 6v6 Capture-the-Flag map on a fully-automated cyberpunk oil rig off the Alaskan
+        coast, built to train my FPS level design and learn UE5. Symmetrical layout for
+        fairness, a giant crane as the focal point (visible from at least 70% of all walkable
+        paths — that was a hard rule), 3 main choke points, and a flying cargo robot that
+        occasionally drops an explosive barrel just to keep everyone honest.
       </p>
 
-      <div class="decision-head">Level Brief &amp; Intent</div>
+      <div class="decision-head">Key Design Decisions</div>
       <div class="decision-grid">
+
+        <div class="decision-card">
+          <div class="decision-title">The map I scrapped entirely</div>
+          <div class="decision-row">
+            <span class="decision-label l-problem">Problem</span>
+            <span class="decision-text">My first blockout — an eco-futuristic Bali resort — tested terribly. Players said it felt nothing like an Overwatch team battle. More like a CS deathmatch map.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-choice">Choice</span>
+            <span class="decision-text">I <strong>scrapped the whole idea</strong> and rebuilt from the feedback and new references — then rebalanced the weapons and AI to match the team-battle feel.</span>
+          </div>
+          <div class="decision-row">
+            <span class="decision-label l-result">Result</span>
+            <span class="decision-text">Same playtesters, second map: positive reactions. The do-over taught me more than the first draft ever could.</span>
+          </div>
+        </div>
 
         <div class="decision-card">
           <div class="decision-title">Balanced for all engagement ranges</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">A CTF map skewed to one range favors specific playstyles and feels unfair.</span>
+            <span class="decision-text">A CTF map skewed to one range favors specific heroes and feels unfair fast.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Designed <strong>medium-sized choke points for team fights</strong> plus corners for surprise, balancing short and long sightlines.</span>
+            <span class="decision-text">I designed <strong>medium choke points for team fights</strong>, corners for surprise plays, vantage points for fliers and high-jumpers, and tuned engagement ranges (25–35 units) against real hero metrics.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">A map that stays fair and tense across different ranges of engagement.</span>
+            <span class="decision-text">Short, medium, and long-range heroes all get their moments.</span>
           </div>
         </div>
 
         <div class="decision-card">
-          <div class="decision-title">Interconnected flanking routes</div>
+          <div class="decision-title">Every area earns its place</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Linear maps make CTF predictable and easy to turtle.</span>
+            <span class="decision-text">Linear CTF maps turn into one predictable contested lane — easy to turtle, boring to attack.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Wove <strong>interconnected paths</strong> so players always have a flank option.</span>
+            <span class="decision-text">I wrote <strong>explicit rules and purposes for all 11 areas</strong> — spawn, flag, dual corridor, flank path, long path, crane — each with defined connections and counterplay, including special paths only reachable with hero skills.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Dynamic routing and counterplay rather than a single contested lane.</span>
+            <span class="decision-text">Attackers always have a flank option; defenders always have a fallback. No dead space.</span>
           </div>
         </div>
 
@@ -2223,21 +2252,22 @@
           <div class="decision-title">Verticality around a focal point</div>
           <div class="decision-row">
             <span class="decision-label l-problem">Problem</span>
-            <span class="decision-text">Players need to orient themselves quickly in a fast 6v6 mode.</span>
+            <span class="decision-text">In a fast 6v6, players who can't orient themselves instantly are dead players.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-choice">Choice</span>
-            <span class="decision-text">Built <strong>two height layers around a central crane</strong> as a constant visual anchor, with environmental fall hazards.</span>
+            <span class="decision-text">I built <strong>two height layers around the central crane</strong> as a constant visual anchor, backed by visual-aid rules: path textures must contrast with non-path objects everywhere.</span>
           </div>
           <div class="decision-row">
             <span class="decision-label l-result">Result</span>
-            <span class="decision-text">Readable orientation plus added risk/reward from verticality.</span>
+            <span class="decision-text">Players always know where they are — plus risk/reward verticality for heroes who can reach it.</span>
           </div>
         </div>
 
       </div>
 
       <div class="modal-store">
+        <a href="https://docs.google.com/document/d/1CK6b_dH2gVpOf6tGulM1DNE7mJgnJNc32ety4WsdKsA/edit?usp=sharing" class="store-link" target="_blank" rel="noopener">Read Full Design Doc</a>
         <a href="https://drive.google.com/file/d/1aeJJ0nm2yj8yAUtJ57pexo1E_797VftY/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
       </div>
     </div>
@@ -2256,9 +2286,9 @@
         <span class="dtag dtag-ux">Player Guidance</span>
       </div>
       <p class="modal-intro">
-        Using Genshin's player-made dungeon event, I built a two-room, coin-collecting,
-        time-limited dungeon as a study in 3rd-person level design — specifically, guiding
-        players through a space using only the environment, no UI markers.
+        When Genshin ran its player-made dungeon event, I used it as a free level design
+        gym: a two-room, coin-collecting, time-limited dungeon built around one question —
+        can I guide players through a space using <em>only</em> the environment, zero UI markers?
       </p>
 
       <div class="decision-head">Player-Guidance Techniques</div>
@@ -2346,8 +2376,9 @@
       </div>
       <p class="modal-intro">
         A gamified simulation that teaches high-school students how photosynthesis actually
-        works. Built in 3 days as a company entry test, it was my exercise in designing and
-        balancing a systemic game where interconnected variables stay complex yet approachable.
+        works — built in 3 days as a company entry test. The fun part: photosynthesis
+        <em>is</em> a resource-management system if you squint, so the science and the game
+        design kept feeding each other.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
@@ -2419,6 +2450,15 @@
 
       </div>
 
+      <div class="decision-head">Screenshots</div>
+      <div class="modal-shots">
+        <img src="photosynthesis-growing.png" alt="Photosynthesis growing mechanic" onerror="this.parentElement.style.display='none'">
+        <img src="photosynthesis-environment.png" alt="Photosynthesis environment factors" onerror="this.parentElement.style.display='none'">
+        <img src="photosynthesis-quiz.png" alt="Photosynthesis quiz" onerror="this.parentElement.style.display='none'">
+        <img src="photosynthesis-education.png" alt="Photosynthesis education content" onerror="this.parentElement.style.display='none'">
+        <img src="photosynthesis-wiki.png" alt="Photosynthesis wiki" onerror="this.parentElement.style.display='none'">
+      </div>
+
       <div class="modal-store">
         <a href="https://drive.google.com/file/d/1b-Lx9WLvl6bF7jSlUYGS4Nnu2NVZ9NS0/view" class="store-link" target="_blank" rel="noopener">Download Prototype</a>
       </div>
@@ -2439,9 +2479,10 @@
         <span class="dtag dtag-tech">Optimization</span>
       </div>
       <p class="modal-intro">
-        My first project as a game designer: porting a completed mobile shooter from a keypad
-        device to the touchscreen Nokia 5800 family. It demanded a full control redesign, level
-        rework for a new aspect ratio, and brand-new content — all inside a brutal size budget.
+        My very first project as a game designer — and it threw me straight into the deep end:
+        porting a finished mobile shooter from a keypad device to the touchscreen Nokia 5800.
+        Full control redesign, levels reworked for a new aspect ratio, brand-new content —
+        all squeezed into a brutal ~1MB size budget. A lesson in optimization I never forgot.
       </p>
 
       <div class="decision-head">Key Design Decisions</div>
